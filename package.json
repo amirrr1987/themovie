@@ -1,5 +1,5 @@
 {
-  "name": "front-end-technical-test",
+  "name": "themovie",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
