@@ -2,7 +2,11 @@
   <div class="the-user-single py-5">
     <div class="container mx-auto px-5">
       <div class="back-bar bg-[#E2E2E2] rounded">
-        <button class="bg-[#549DF2] capitalize">back</button>
+        <button class="bg-[#549DF2] capitalize px-10 py-2 rounded-full text-white mr-10">back</button>
+        <div class="flex flex-col">
+            <strong class="">Guardians of the Galaxy</strong>
+            <span>All heroes start somewhere.</span>
+        </div>
       </div>
       <div class="py-5">
           <div class="grid grid-cols-[max-content,1fr] gap-x-10 mb-5">
@@ -55,6 +59,6 @@
 </template>
 <style>
 .back-bar {
-  @apply bg-[#E2E2E2] px-16 py-10 rounded shadow drop-shadow md:flex md:justify-between;
+  @apply bg-[#E2E2E2] px-16 py-8 rounded shadow drop-shadow md:flex;
 }
 </style>
