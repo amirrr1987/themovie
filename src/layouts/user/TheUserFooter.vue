@@ -1,6 +1,6 @@
 <template>
   <footer class="the-footer">
-    <div class="container mx-auto">TheUserFooter.vue</div>
+    <div class="container mx-auto text-center">TheUserFooter.vue</div>
   </footer>
 </template>
 <script lang="ts" setup></script>

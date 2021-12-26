@@ -1,12 +1,12 @@
 <template>
   <div class="the-home">
     <section class="py-10">
-      <div class="container mx-auto">
+      <div class="container mx-auto px-5">
         <SearchBar />
       </div>
     </section>
     <section>
-      <div class="container mx-auto">
+      <div class="container mx-auto px-5">
         <div
           class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-12"
         >
