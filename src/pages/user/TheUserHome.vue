@@ -10,14 +10,11 @@
         <div
           class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-12"
         >
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+        <template v-for="(item,index) in movieList" :key="index">
+          <MovieCard :title="item.title" :date="item.release_date" :imgSrc="item.poster_path"  @click="getMovieItem(item.id)" />
+
+        </template>
+
         </div>
       </div>
     </section>
@@ -34,4 +31,28 @@
 <script lang="ts" setup>
 import MovieCard from "./../../components/MovieCard.vue";
 import SearchBar from "../../components/SearchBar.vue";
+import { onMounted, ref } from "vue";
+import { GetMovieList } from "../../services/api";
+import { useRouter } from 'vue-router';
+const movieList = ref([])
+
+onMounted(async ()=>{
+  try {
+    let {data} = await GetMovieList()
+    console.log(data);
+    movieList.value = data.results
+    
+  } catch (error) {
+    
+  }
+})
+
+const router = useRouter()
+const getMovieItem = (index:number)=>{
+  console.log(index);
+  router.push(`${index}`)
+  
+}
+
+
 </script>
