@@ -1,19 +1,20 @@
 <template>
   <figure class="movie-card">
-    <img class="h-full" src="@/assets/img/cover.png" title="" alt="" />
+    <div class="w-[125px] h-[195px]">
+      <img class="w-full h-full rounded-tl rounded-bl" :src="`https://image.tmdb.org/t/p/original${imgSrc}`" title="" alt="" />
+    </div>
     <figcaption class="px-1 py-3 flex flex-col justify-between">
-      <h4 class="font-bold">Inception</h4>
+      <h4 class="font-bold">{{title}}</h4>
       <div class="text-sm">
         <div class="flex items-center mb-3">
           <IconCalendar class="mr-3" />
-          <span>2014-12-01</span>
+          <span>{{date}}</span>
         </div>
         <div class="inline-flex justify-around items-center">
-          <span class="">Action</span>
-          <i class="bg-gray-500 w-[6px] h-[6px] rounded-full mx-1"></i>
-          <span class="">Adventure</span>
-          <i class="bg-gray-500 w-[6px] h-[6px] rounded-full mx-1"></i>
-          <span class="">Sci-Fi</span>
+          <template v-for="item in genres" :key="item">
+            <span class="">{{item}}</span>
+            <i class="bg-gray-500 w-[6px] h-[6px] rounded-full mx-1"></i>
+          </template>
         </div>
       </div>
     </figcaption>
@@ -21,6 +22,12 @@
 </template>
 <script lang="ts" setup>
 import IconCalendar from "./IconCalendar.vue";
+const props = defineProps({
+  title: String,
+  date: String,
+  genres: Array,
+  imgSrc: String
+})
 </script>
 <style>
 .movie-card {
