@@ -31,6 +31,6 @@ const props = defineProps({
 </script>
 <style>
 .movie-card {
-  @apply bg-[#F1F1F1] grid grid-cols-[max-content,1fr] gap-x-3 w-full rounded shadow drop-shadow overflow-hidden p-1 mx-auto;
+  @apply bg-[#F1F1F1] grid grid-cols-[max-content,1fr] gap-x-3 w-full rounded shadow drop-shadow overflow-hidden p-1 mx-auto cursor-pointer;
 }
 </style>
