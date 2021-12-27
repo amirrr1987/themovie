@@ -34,22 +34,26 @@
 <script lang="ts" setup>
 import MovieCard from "./../../components/MovieCard.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { GetMovieList } from "../../services/api";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { setMovies } from "../../services/store";
 const movieList = ref();
+const route = useRoute()
+const router = useRouter();
+const currentPage = computed(() => {
+  return route.query.page;
+});
 
 onMounted(async () => {
   try {
-    let { data } = await GetMovieList();
+    let { data } = await GetMovieList(`${currentPage.value ?? 1}`);
     console.log(data);
     movieList.value = data.results;
     setMovies(movieList.value);
   } catch (error) {}
 });
 
-const router = useRouter();
 const getMovieItem = (index: number) => {
   router.push(`${index}`);
 };
