@@ -3,7 +3,7 @@
     <div class="container mx-auto px-5">
       <nav class="flex justify-between">
         <ul class="flex">
-          <li><router-link class="mr-3" to="/">Home</router-link></li>
+          <li><router-link class="mr-3" to="/?page=1">Home</router-link></li>
           <li><router-link class="mr-3" to="/about">About</router-link></li>
           <li><router-link class="mr-3" to="/contact">Contact</router-link></li>
         </ul>
