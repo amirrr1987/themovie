@@ -38,7 +38,7 @@ import { onMounted, ref } from "vue";
 import { GetMovieList } from "../../services/api";
 import { useRouter } from "vue-router";
 import { setMovies } from "../../services/store";
-const movieList = ref([]);
+const movieList = ref();
 
 onMounted(async () => {
   try {

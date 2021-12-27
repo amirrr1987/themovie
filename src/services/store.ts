@@ -10,8 +10,8 @@ export const getMovies = (): Object => {
   return state.movies;
 };
 
-export const getMovieItem = (id: any) => {
-  let data = state.movies.find((item: object) => {
+export const getMovieItem = (id: string) => {
+  let data = state.movies.find((item: any) => {
     return item.id == id;
   });
     return data

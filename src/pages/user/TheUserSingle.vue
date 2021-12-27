@@ -91,12 +91,14 @@ const route = useRoute();
 const movieId = ref("");
 
 movieId.value = `${route.params.id}`;
-const movieItem = ref({})
+const movieItem = ref()
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetails(movieId.value);
     console.log(data);
     movieItem.value = data
+    console.log(typeof movieItem.value);
+    
   } catch (error) {
     console.log(error);
   }
