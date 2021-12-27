@@ -11,7 +11,7 @@ export const getMovies = (): Object => {
 };
 
 export const getMovieItem = (id: any) => {
-  let data = state.movies.filter((item: object) => {
+  let data = state.movies.find((item: object) => {
     return item.id == id;
   });
     return data

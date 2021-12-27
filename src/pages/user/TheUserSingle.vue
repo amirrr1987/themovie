@@ -18,41 +18,45 @@
           back
         </router-link>
         <div class="flex flex-col">
-          <strong class="">{{ moveItem[0].title }}</strong>
-          <span>{{ moveItem[0].original_title }}</span>
+          <strong class="">{{ movieItem.title }}</strong>
+          <span>{{ movieItem.tagline }}</span>
         </div>
       </div>
       <div class="py-5">
         <div class="grid grid-cols-[max-content,1fr] gap-x-10 mb-5">
           <img
             class="max-w-full rounded"
-            :src="`https://image.tmdb.org/t/p/w400${moveItem[0].poster_path}`"
+            :src="`https://image.tmdb.org/t/p/w400${movieItem.poster_path}`"
             alt=""
           />
           <div class="">
             <div class="flex justify-between mb-2">
               <span>Budget</span>
-              <span>$170’000’000</span>
+              <span>{{movieItem.budget}}</span>
             </div>
             <div class="flex justify-between mb-2">
               <span>Revenue</span>
-              <span>$772’776’600</span>
+              <span>${{movieItem.revenue}}</span>
             </div>
             <div class="flex justify-between mb-2">
               <span>Release Date</span>
-              <span>2014-07-30</span>
+              <span>{{movieItem.release_date}}</span>
             </div>
             <div class="flex justify-between mb-2">
               <span>Runtime</span>
-              <span>2h 1m</span>
+              <span>{{runtime}}</span>
             </div>
             <div class="flex justify-between mb-2">
               <span>Score</span>
-              <span>7.9 (23563 votes)</span>
+              <span>{{movieItem.vote_average}} ({{movieItem.vote_count}} votes)</span>
             </div>
             <div class="flex justify-between mb-2">
               <span>Genres</span>
-              <span>Action, Science Fiction, Adventure</span>
+              <div>
+                <template v-for="item in movieItem.genres" :key="item">
+                  <span class="mr-1">{{ item.name }},</span>
+                </template>
+              </div>
             </div>
             <div class="flex justify-between mb-2">
               <span>IMDB Link</span>
@@ -60,12 +64,12 @@
             </div>
             <div class="flex justify-between mb-2">
               <span>Homepage Link</span>
-              <a href="#">Link</a>
+              <a :href="movieItem.homepage" target="_blank">Link</a>
             </div>
           </div>
         </div>
         <p class="mb-5">
-          {{ moveItem[0].overview }}
+          {{ movieItem.overview }}
         </p>
         <strong class="mb-2 block">Credit:</strong>
         <p>
@@ -78,19 +82,37 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { matchedRouteKey, useRoute } from "vue-router";
+import { GetMovieDetails } from "../../services/api";
 import { getMovieItem } from "../../services/store";
 
 const route = useRoute();
 const movieId = ref("");
 
 movieId.value = `${route.params.id}`;
-
-const moveItem = computed(() => {
-  return getMovieItem(movieId.value);
+const movieItem = ref({})
+onMounted(async () => {
+  try {
+    let { data } = await GetMovieDetails(movieId.value);
+    console.log(data);
+    movieItem.value = data
+  } catch (error) {
+    console.log(error);
+  }
 });
-console.log(moveItem.value[0]);
+const runtime = computed(()=>{
+  // movieItem.value.runtime / 
+    let h = Math.floor( movieItem.value.runtime / 60);          
+    let m =  movieItem.value.runtime % 60;
+
+    return `${h}h ${m}m`
+})
+
+// const movieItem = computed(() => {
+//   return getMovieItem(movieId.value);
+// });
+// console.log(movieItem.value)
 </script>
 <style>
 .back-bar {
