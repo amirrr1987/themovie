@@ -37,21 +37,27 @@ import SearchBar from "../../components/SearchBar.vue";
 import { computed, onMounted, ref } from "vue";
 import { GetMovieList } from "../../services/api";
 import { useRoute, useRouter } from "vue-router";
-import { setMovies } from "../../services/store";
 const movieList = ref();
-const route = useRoute()
+const route = useRoute();
 const router = useRouter();
-const currentPage = computed(() => {
-  return route.query.page;
+const currentPage = computed({
+  set: (value: any) => {
+    route.query.page = value;
+  },
+  get: () => {
+    return route.query.page;
+  },
 });
 
 onMounted(async () => {
   try {
     let { data } = await GetMovieList(`${currentPage.value ?? 1}`);
-    console.log(data);
     movieList.value = data.results;
-    setMovies(movieList.value);
-  } catch (error) {}
+    currentPage.value = data.page;
+    router.push(`/?page=${currentPage.value}`);
+  } catch (error) {
+    throw error
+  }
 });
 
 const getMovieItem = (index: number) => {
