@@ -43,6 +43,7 @@ import SearchBar from "../../components/SearchBar.vue";
 import { computed, onMounted, ref } from "vue";
 import { GetMovieList } from "../../services/api";
 import { useRoute, useRouter } from "vue-router";
+import NProgress from "NProgress"
 const movieList = ref();
 const route = useRoute();
 const router = useRouter();
@@ -62,6 +63,7 @@ const currentPage = computed({
 
 const movieListLength = ref();
 onMounted(async () => {
+  NProgress.start();
   try {
     let { data } = await GetMovieList(`${currentPage.value}`);
     movieList.value = data.results;
@@ -70,17 +72,22 @@ onMounted(async () => {
     router.push(`/?page=${currentPage.value}`);
   } catch (error) {
     throw error;
+  } finally{
+    NProgress.done();
   }
 
 });
 
 const getMovieItem = (index: number) => {
+    NProgress.start();
     router.push({name: "TheUserSingle",params: {id: index} });
+    NProgress.done();
 };
 
 const startItem = ref(1);
 
 const nextPageHandel = async () => {
+  NProgress.start();
   try {
     let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`);
     console.log(data);
@@ -96,10 +103,13 @@ const nextPageHandel = async () => {
     window.scrollTo(0, 0);
   } catch (error) {
     throw error;
+  } finally{
+    NProgress.done();
   }
 };
 
 const previousPageHandel = async () => {
+  NProgress.start();
   try {
     let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`);
     console.log(data);
@@ -111,6 +121,8 @@ const previousPageHandel = async () => {
     window.scrollTo(0, 0);
   } catch (error) {
     throw error;
+  } finally{
+    NProgress.done();
   }
 };
 
