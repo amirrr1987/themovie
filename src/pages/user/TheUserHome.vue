@@ -51,14 +51,19 @@ const currentPage = computed({
     route.query.page = value;
   },
   get: () => {
-    return route.query.page;
+    if(isNaN(Number(route.query.page))){
+      return 1
+    }
+    else{
+      return route.query.page
+    }
   },
 });
 
 const movieListLength = ref();
 onMounted(async () => {
   try {
-    let { data } = await GetMovieList(`${currentPage.value ?? 1}`);
+    let { data } = await GetMovieList(`${currentPage.value}`);
     movieList.value = data.results;
     movieListLength.value = data.results.length;
     currentPage.value = data.page;
@@ -66,10 +71,11 @@ onMounted(async () => {
   } catch (error) {
     throw error;
   }
+
 });
 
 const getMovieItem = (index: number) => {
-  router.push(`${index}`);
+    router.push({name: "TheUserSingle",params: {id: index} });
 };
 
 const startItem = ref(1);
