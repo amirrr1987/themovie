@@ -10,12 +10,12 @@ const router = createRouter({
       children: [
         {
           path: "/",
-          name: "TheHome",
+          name: "TheUserHome",
           component: () => import("../pages/user/TheUserHome.vue"),
         },
         {
           path: "/:id",
-          name: "TheSingle",
+          name: "TheUserSingle",
           component: () => import("../pages/user/TheUserSingle.vue"),
         },
       ],
