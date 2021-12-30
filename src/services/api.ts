@@ -8,12 +8,19 @@ const DATA = Axios.create({
   },
 });
 
-export const GetMovieList = (page: string) => {
+export const GetMovieList = (
+  page: string = '1',
+  sortBy: string = "popularity.desc"
+) => {
   return DATA.get(
-    `discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
+    `discover/movie?api_key=${apiKey}&page=${page}&sort_by=${sortBy}`
   );
 };
-
+// https://api.themoviedb.org/3/discover/movie?api_key=f62f750b70a8ef11dad44670cfb6aa57
 export const GetMovieDetails = (movieId: string) => {
   return DATA.get(`movie/${movieId}?api_key=${apiKey}`);
+};
+
+export const GetGenres = () => {
+  return DATA.get(`/genre/movie/list?api_key=${apiKey}&language=en-US`);
 };
