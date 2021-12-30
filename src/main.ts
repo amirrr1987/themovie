@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router';
 import './assets/css/tailwind.css'
 import "./assets/css/nprogress.css";
+import "./assets/css/icon.css";
 // import "vue-transitions-css";
 import vueLazyLoad from "vue3-lazyload";
 
