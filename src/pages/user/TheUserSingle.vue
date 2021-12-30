@@ -123,11 +123,7 @@ const runtime = computed(() => {
 });
 
 const goBackHome = () => {
-  if (router.go(-1) == undefined) {
-    router.push({ name: "TheUserHome", query: { page: 1 } });
-  } else {
-    router.go(-1);
-  }
+  router.go(-1);
 };
 </script>
 <style>
