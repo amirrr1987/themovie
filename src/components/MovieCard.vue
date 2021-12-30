@@ -7,8 +7,8 @@
         class="w-full h-full rounded-tl rounded-bl"
         v-lazy="{
           src: `https://image.tmdb.org/t/p/original${imgSrc}`,
-          loading: '@/assets/img/img-loading.gif',
-          error: '@/assets/img/img-cover.svg',
+          loading: '/assets/img/img-loading.gif',
+          error: '/assets/img/img-cover.svg',
         }"
         title=""
         alt=""
