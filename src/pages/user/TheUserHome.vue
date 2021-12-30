@@ -43,7 +43,7 @@ import SearchBar from "../../components/SearchBar.vue";
 import { computed, onMounted, ref } from "vue";
 import { GetMovieList } from "../../services/api";
 import { useRoute, useRouter } from "vue-router";
-import NProgress from "NProgress"
+import NProgress from "NProgress";
 const movieList = ref();
 const route = useRoute();
 const router = useRouter();
@@ -52,39 +52,39 @@ const currentPage = computed({
     route.query.page = value;
   },
   get: () => {
-    if(isNaN(Number(route.query.page))){
-      return 1
-    }
-    else{
-      return route.query.page
+    if (isNaN(Number(route.query.page))) {
+      return 1;
+    } else {
+      return route.query.page;
     }
   },
 });
 
-const movieListLength = ref();
+const startItem = ref(1);
+const endItem = ref(20);
+
 onMounted(async () => {
   NProgress.start();
   try {
     let { data } = await GetMovieList(`${currentPage.value}`);
+    console.log(data);
     movieList.value = data.results;
-    movieListLength.value = data.results.length;
-    currentPage.value = data.page;
-    router.push(`/?page=${currentPage.value}`);
+    startItem.value = data.page * data.results.length + 1 - data.results.length;
+    endItem.value = startItem.value + (data.results.length - 1);
+    router.push({ name: "TheUserHome", query: { page: data.page } });
+    window.scrollTo(0, 0);
   } catch (error) {
     throw error;
-  } finally{
+  } finally {
     NProgress.done();
   }
-
 });
 
 const getMovieItem = (index: number) => {
-    NProgress.start();
-    router.push({name: "TheUserSingle",params: {id: index} });
-    NProgress.done();
+  NProgress.start();
+  router.push({ name: "TheUserSingle", params: { id: index } });
+  NProgress.done();
 };
-
-const startItem = ref(1);
 
 const nextPageHandel = async () => {
   NProgress.start();
@@ -92,18 +92,13 @@ const nextPageHandel = async () => {
     let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`);
     console.log(data);
     movieList.value = data.results;
-    route.params.page = data.page;
-    router.push(`/?page=${data.page}`);
-    movieListLength.value = data.results.length;
-    startItem.value = startItem.value + movieListLength.value;
-    if (route.params.page < data.total_pages) {
-      startItem.value = startItem.value + movieListLength.value;
-    }
-
+    startItem.value = data.page * data.results.length + 1 - data.results.length;
+    endItem.value = startItem.value + (data.results.length - 1);
+    router.push({ name: "TheUserHome", query: { page: data.page } });
     window.scrollTo(0, 0);
   } catch (error) {
     throw error;
-  } finally{
+  } finally {
     NProgress.done();
   }
 };
@@ -114,19 +109,14 @@ const previousPageHandel = async () => {
     let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`);
     console.log(data);
     movieList.value = data.results;
-    route.params.page = data.page;
-    router.push(`/?page=${data.page}`);
-    movieListLength.value = data.results.length;
-    startItem.value = startItem.value - movieListLength.value;
+    startItem.value = data.page * data.results.length + 1 - data.results.length;
+    endItem.value = startItem.value + (data.results.length - 1);
+    router.push({ name: "TheUserHome", query: { page: data.page } });
     window.scrollTo(0, 0);
   } catch (error) {
     throw error;
-  } finally{
+  } finally {
     NProgress.done();
   }
 };
-
-const endItem = computed(() => {
-  return startItem.value + movieListLength.value - 1;
-});
 </script>
