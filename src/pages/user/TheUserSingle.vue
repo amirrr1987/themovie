@@ -2,32 +2,37 @@
   <div class="the-user-single py-5">
     <transition name="bounce">
       <div class="container mx-auto px-5" v-if="movieTransition">
-        <div class="back-bar bg-[#E2E2E2] rounded">
+        <div class="bg-[#E2E2E2] px-16 py-8 rounded shadow drop-shadow md:flex">
+          <div class="flex flex-col mb-5 md:order-2">
+            <strong class="">{{ movieItem.title }}</strong>
+            <span>{{ movieItem.tagline }}</span>
+          </div>
           <button
             class="
               bg-[#549DF2]
               capitalize
               self-center
-              px-10
+              w-full
+              md:w-auto md:px-10
               py-2
               rounded-full
               text-white
-              mr-10
+              md:mr-10 md:order-1
             "
             @click="goBackHome"
           >
             back
           </button>
-          <div class="flex flex-col">
-            <strong class="">{{ movieItem.title }}</strong>
-            <span>{{ movieItem.tagline }}</span>
-          </div>
         </div>
         <div class="py-5">
-          <div class="grid grid-cols-[max-content,1fr] gap-x-10 mb-5">
+          <div class="grid md:grid-cols-[max-content,1fr] gap-10 mb-5">
             <img
-              class="max-w-full rounded"
-              :src="`https://image.tmdb.org/t/p/w400${movieItem.poster_path}`"
+              class="w-full md:w-80 rounded"
+              v-lazy="{
+                src: `https://image.tmdb.org/t/p/w400${movieItem.poster_path}`,
+                loading: 'src/assets/img/img-loading.gif',
+                error: 'src/assets/img/img-cover.svg',
+              }"
               alt=""
             />
             <div class="">
@@ -92,21 +97,20 @@
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { GetMovieDetails } from "../../services/api";
-
 const route = useRoute();
 const router = useRouter();
 const movieId = ref("");
 
 movieId.value = `${route.params.id}`;
 const movieItem = ref();
-const movieTransition = ref(false)
+const movieTransition = ref(false);
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetails(movieId.value);
     console.log(data);
     movieItem.value = data;
     console.log(typeof movieItem.value);
-    movieTransition.value = !movieTransition.value
+    movieTransition.value = !movieTransition.value;
   } catch (error) {
     console.log(error);
   }
@@ -118,20 +122,20 @@ const runtime = computed(() => {
   return `${h}h ${m}m`;
 });
 
-const goBackHome = ()=>{
-  router.go(-1)
-}
+const goBackHome = () => {
+  if (router.go(-1) == undefined) {
+    router.push({ name: "TheUserHome", query: { page: 1 } });
+  } else {
+    router.go(-1);
+  }
+};
 </script>
 <style>
-.back-bar {
-  @apply bg-[#E2E2E2] px-16 py-8 rounded shadow drop-shadow md:flex;
-}
-
 .bounce-enter-active {
-  animation: bounce-in .9s;
+  animation: bounce-in 0.9s;
 }
 .bounce-leave-active {
-  animation: bounce-in .9s reverse;
+  animation: bounce-in 0.9s reverse;
 }
 @keyframes bounce-in {
   0% {
@@ -141,5 +145,4 @@ const goBackHome = ()=>{
     opacity: 1;
   }
 }
-
 </style>
