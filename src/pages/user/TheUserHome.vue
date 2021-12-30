@@ -3,7 +3,7 @@
     <section class="py-10">
       <div class="container mx-auto px-5">
         <SearchBar />
-        <div class="shadow drop-shadow my-1 py-3 flex">
+        <div class="shadow drop-shadow my-1 py-3 grid gap-5">
           <button
             class="
               mx-5
@@ -26,7 +26,7 @@
               "
             ></i>
           </button>
-          <form class="flex" @submit.prevent="searchByDate">
+          <form class="grid" @submit.prevent="searchByDate">
             <div class="mx-3 capitalize">
               <label for="start" class="mr-2">start date:</label>
               <input

@@ -30,8 +30,8 @@
               class="w-full md:w-80 rounded"
               v-lazy="{
                 src: `https://image.tmdb.org/t/p/w400${movieItem.poster_path}`,
-                loading: 'src/assets/img/img-loading.gif',
-                error: 'src/assets/img/img-cover.svg',
+                loading: '@/assets/img/img-loading.gif',
+                error: '@/assets/img/img-cover.svg',
               }"
               alt=""
             />
