@@ -3,7 +3,7 @@
     <section class="py-10">
       <div class="container mx-auto px-5">
         <SearchBar />
-        <div class="shadow drop-shadow my-1 py-3 grid gap-5">
+        <div class="shadow drop-shadow my-1 py-3 grid gap-5 md:grid-cols-[max-content,1fr]">
           <button
             class="
               mx-5
@@ -22,11 +22,11 @@
             <i
               class="text-xs"
               :class="
-                popularity == 'desc' ? 'icon--sort-down' : 'icon--sort-up'
+                popularity == 'popularity.desc' ? 'icon--sort-down' : 'icon--sort-up'
               "
             ></i>
           </button>
-          <form class="grid" @submit.prevent="searchByDate">
+          <form class="grid md:grid-cols-[max-content,max-content,max-content]" @submit.prevent="searchByDate">
             <div class="mx-3 capitalize">
               <label for="start" class="mr-2">start date:</label>
               <input
@@ -210,9 +210,10 @@ const previousPageHandel = async () => {
  *
  * ```
  */
-const popularity = ref("desc");
+const popularity = ref("popularity.desc");
 const popularityOrder = async () => {
-  popularity.value = popularity.value == "desc" ? "asc" : "desc";
+  popularity.value = popularity.value == "popularity.desc" ? "popularity.asc" : "popularity.desc";
+  NProgress.start();
   try {
     let { data } = await GetMovieList(`1`, popularity.value);
     console.log(data);
@@ -271,14 +272,28 @@ const startDate = ref("");
 const endDate = ref("");
 
 const searchByDate = async () => {
+  NProgress.start();
   try {
     let { data } = await GetMovieList(
       "1",
       `release_date.gte=${startDate.value}&release_date.lte=${endDate.value}`
     );
     console.log(data);
+    movieList.value = data.results;
+    movieList.value.forEach((item: any) => {
+      item.genres = genresList.value
+        .filter((genre: any) => item.genre_ids.includes(genre.id))
+        .map((item: any) => item.name);
+    });
+    console.log(movieList.value);
+    startItem.value = data.page * data.results.length + 1 - data.results.length;
+    endItem.value = startItem.value + (data.results.length - 1);
+    router.push({ name: "TheUserHome", query: { page: data.page } });
+    window.scrollTo(0, 0);
   } catch (error) {
     throw error;
+  } finally {
+    NProgress.done();
   }
 };
 </script>

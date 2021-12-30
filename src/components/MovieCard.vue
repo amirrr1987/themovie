@@ -38,10 +38,10 @@ import IconCalendar from "./IconCalendar.vue";
 export default defineComponent({
   name: "TheApp",
   props: {
-    title: { type: String },
-    date: { type: String },
-    genres: { type: Array },
-    imgSrc: { type: String },
+    title: { type: String, default: '-' },
+    date: { type: String, default: '-' },
+    genres: { type: Array, default: ['-'] },
+    imgSrc: { type: String},
     genresData: { type: Array },
   },
   components: { IconCalendar },
