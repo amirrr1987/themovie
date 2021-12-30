@@ -73,13 +73,13 @@
       </div>
     </section>
     <section class="py-5 lg:py-10">
-      <div class="flex justify-center">
-        <button class="text-blue-400 capitalize" @click="previousPageHandel">
-          previous page
+      <div class="flex justify-center items-center text-3xl">
+        <button class="capitalize" :class="startItem == 1 ? 'text-gray-500': 'text-green-500'" @click="previousPageHandel">
+          <i class="icon--angle-double-left"></i>
         </button>
-        <div class="h-[50px] bg-gray-400 w-[2px] mx-3"></div>
-        <button class="text-blue-500 capitalize" @click="nextPageHandel">
-          next page
+        <div class="h-[25px] bg-gray-400 w-[2px] mx-3"></div>
+        <button class="text-green-500 capitalize text-3xl" @click="nextPageHandel">
+          <i class="icon--angle-double-right"></i>
         </button>
       </div>
       <div class="text-center">
