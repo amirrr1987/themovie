@@ -8,7 +8,7 @@
         v-lazy="{
           src: `https://image.tmdb.org/t/p/original${imgSrc}`,
           loading: '/assets/img/img-loading.gif',
-          error: '/assets/img/img-cover.svg',
+          error: '/assets/img/img-error.png',
         }"
         title=""
         alt=""
