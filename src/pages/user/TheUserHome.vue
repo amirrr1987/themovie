@@ -94,7 +94,7 @@ import SearchBar from "../../components/SearchBar.vue";
 import { computed, onBeforeMount, onMounted, ref } from "vue";
 import { GetGenres, GetMovieList } from "../../services/api";
 import { useRoute, useRouter } from "vue-router";
-import NProgress from "NProgress";
+import NProgress from "nprogress";
 const movieList = ref();
 const route = useRoute();
 const router = useRouter();
