@@ -1,7 +1,7 @@
 <template>
   <figure class="movie-card">
     <div class="w-[125px] h-[195px]">
-      <img class="w-full h-full rounded-tl rounded-bl" :src="`https://image.tmdb.org/t/p/original${imgSrc}`" title="" alt="" />
+      <img width="125" height="195" class="w-full h-full rounded-tl rounded-bl" v-lazy="{ src: `https://image.tmdb.org/t/p/original${imgSrc}`, loading: 'src/assets/img/img-loading.gif', error: 'src/assets/img/img-cover.svg' }" title="" alt="" />
     </div>
     <figcaption class="px-1 py-3 flex flex-col justify-between">
       <h4 class="font-bold">{{title}}</h4>
