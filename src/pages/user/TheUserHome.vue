@@ -9,7 +9,7 @@
               mx-5
               bg-blue-500
               px-5
-              py-1
+              py-2
               text-white
               rounded
               capitalize
@@ -26,9 +26,9 @@
               "
             ></i>
           </button>
-          <form class="grid md:grid-cols-[max-content,max-content,max-content]" @submit.prevent="searchByDate">
+          <form class="grid md:grid-cols-[max-content,max-content,max-content] gap-5" @submit.prevent="searchByDate">
             <div class="mx-3 capitalize">
-              <label for="start" class="mr-2">start date:</label>
+              <label for="start" class="w-20 inline-block mr-2">start date:</label>
               <input
                 name="start"
                 type="date"
@@ -36,8 +36,8 @@
                 v-model="startDate"
               />
             </div>
-            <div class="mr-5">
-              <label for="end" class="mr-2">end date:</label>
+            <div class="mx-3">
+              <label for="end" class="w-20 inline-block mr-2">end date:</label>
               <input
                 name="edn"
                 type="date"
@@ -47,7 +47,7 @@
             </div>
             <button
               type="submit"
-              class="bg-blue-500 text-blue-50 px-5 py-1 rounded-full"
+              class="bg-blue-500 text-blue-50 px-5 py-2 rounded-full"
             >
               Search Date
             </button>
