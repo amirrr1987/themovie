@@ -10,10 +10,12 @@ const DATA = Axios.create({
 
 export const GetMovieList = (
   page: string = '1',
-  sortBy: string = "popularity.desc"
+  sortBy: string = "popularity.desc",
+  gte: string = "",
+  lte: string = ""
 ) => {
   return DATA.get(
-    `discover/movie?api_key=${apiKey}&page=${page}&sort_by=${sortBy}`
+    `discover/movie?api_key=${apiKey}&page=${page}&sort_by=${sortBy}&release_date.gte=${gte}&release_date.lte=${lte}`
   );
 };
 // https://api.themoviedb.org/3/discover/movie?api_key=f62f750b70a8ef11dad44670cfb6aa57

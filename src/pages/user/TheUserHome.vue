@@ -124,7 +124,7 @@ onBeforeMount(async () => {
 const startItem = ref(1);
 const endItem = ref(20);
 
-const dataAction = (data:any)=>{
+const dataAction = (data:any) :void=>{
     console.log('dataAction method is call');
     console.log(data);
     movieList.value = data.results;
@@ -221,8 +221,8 @@ const searchByDate = async () => {
   NProgress.start();
   try {
     let { data } = await GetMovieList(
-      "1",
-      `release_date.gte=${startDate.value}&release_date.lte=${endDate.value}`
+      "1", "popularity.desc", startDate.value,endDate.value
+      
     );
     console.log(data);
     movieList.value = data.results;
