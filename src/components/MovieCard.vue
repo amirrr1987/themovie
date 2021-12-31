@@ -21,7 +21,7 @@
           <IconCalendar class="mr-3" />
           <span>{{ date }}</span>
         </div>
-        <div class="inline-flex justify-around items-center">
+        <div class="inline-flex justify-start items-center flex-wrap">
           <template v-for="item in genres" :key="item">
             <span class="">{{ item }}</span>
             <i class="bg-gray-500 w-[6px] h-[6px] rounded-full mx-1"></i>
