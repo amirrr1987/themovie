@@ -124,13 +124,9 @@ onBeforeMount(async () => {
 const startItem = ref(1);
 const endItem = ref(20);
 
-onMounted(async () => {
-  NProgress.start();
-  try {
-    let { data } = await GetMovieList(
-      `${currentPage.value}`,
-      "popularity.desc"
-    );
+const dataAction = (data:any)=>{
+    console.log('dataAction method is call');
+    console.log(data);
     movieList.value = data.results;
     movieList.value.forEach((item: any) => {
       item.genres = genresList.value
@@ -142,6 +138,17 @@ onMounted(async () => {
     endItem.value = startItem.value + (data.results.length - 1);
     router.push({ name: "TheUserHome", query: { page: data.page } });
     window.scrollTo(0, 0);
+}
+
+onMounted(async () => {
+  NProgress.start();
+  try {
+    let { data } = await GetMovieList(
+      `${currentPage.value}`,
+      "popularity.desc"
+    );
+    dataAction(data)
+
   } catch (error) {
     throw error;
   } finally {
@@ -160,17 +167,7 @@ const nextPageHandel = async () => {
   try {
     let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`);
     console.log(data);
-    movieList.value = data.results;
-    movieList.value.forEach((item: any) => {
-      item.genres = genresList.value
-        .filter((genre: any) => item.genre_ids.includes(genre.id))
-        .map((item: any) => item.name);
-    });
-    console.log(movieList.value);
-    startItem.value = data.page * data.results.length + 1 - data.results.length;
-    endItem.value = startItem.value + (data.results.length - 1);
-    router.push({ name: "TheUserHome", query: { page: data.page } });
-    window.scrollTo(0, 0);
+    dataAction(data)
   } catch (error) {
     throw error;
   } finally {
@@ -182,18 +179,7 @@ const previousPageHandel = async () => {
   NProgress.start();
   try {
     let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`);
-    console.log(data);
-    movieList.value = data.results;
-    movieList.value.forEach((item: any) => {
-      item.genres = genresList.value
-        .filter((genre: any) => item.genre_ids.includes(genre.id))
-        .map((item: any) => item.name);
-    });
-    console.log(movieList.value);
-    startItem.value = data.page * data.results.length + 1 - data.results.length;
-    endItem.value = startItem.value + (data.results.length - 1);
-    router.push({ name: "TheUserHome", query: { page: data.page } });
-    window.scrollTo(0, 0);
+    dataAction(data)
   } catch (error) {
     throw error;
   } finally {
@@ -216,18 +202,7 @@ const popularityOrder = async () => {
   NProgress.start();
   try {
     let { data } = await GetMovieList(`1`, popularity.value);
-    console.log(data);
-    movieList.value = data.results;
-    movieList.value.forEach((item: any) => {
-      item.genres = genresList.value
-        .filter((genre: any) => item.genre_ids.includes(genre.id))
-        .map((item: any) => item.name);
-    });
-    console.log(movieList.value);
-    startItem.value = data.page * data.results.length + 1 - data.results.length;
-    endItem.value = startItem.value + (data.results.length - 1);
-    router.push({ name: "TheUserHome", query: { page: data.page } });
-    window.scrollTo(0, 0);
+    dataAction(data)
   } catch (error) {
     throw error;
   } finally {
@@ -238,35 +213,6 @@ const popularityOrder = async () => {
 // End: popularity Order
 ///////////////////////////////////////////////
 
-// ///////////////////////////////////////////////
-// // Start: popularity Order
-// /**
-//  * This is function.
-//  * @param {string} popularity - A string param
-//  * @return {array} A good string
-//  *
-//  * ```
-//  */
-// const releaseYear = ref("primary_release_year");
-// const popularityOrder = async () => {
-//   popularity.value = popularity.value == "desc" ? "asc" : "desc";
-//   try {
-//     let { data } = await GetMovieList(`1`, popularity.value);
-//     console.log(data);
-//     movieList.value = data.results;
-//     startItem.value = data.page * data.results.length + 1 - data.results.length;
-//     endItem.value = startItem.value + (data.results.length - 1);
-//     router.push({ name: "TheUserHome", query: { page: data.page } });
-//     window.scrollTo(0, 0);
-//   } catch (error) {
-//     throw error;
-//   } finally {
-//     NProgress.done();
-//   }
-// };
-
-// // End: popularity Order
-///////////////////////////////////////////////
 
 const startDate = ref("");
 const endDate = ref("");

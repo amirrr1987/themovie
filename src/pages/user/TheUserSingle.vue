@@ -107,9 +107,7 @@ const movieTransition = ref(false);
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetails(movieId.value);
-    console.log(data);
     movieItem.value = data;
-    console.log(typeof movieItem.value);
     movieTransition.value = !movieTransition.value;
   } catch (error) {
     console.log(error);
@@ -118,7 +116,6 @@ onMounted(async () => {
 const runtime = computed(() => {
   let h = Math.floor(movieItem.value.runtime / 60);
   let m = movieItem.value.runtime % 60;
-
   return `${h}h ${m}m`;
 });
 
