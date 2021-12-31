@@ -98,6 +98,8 @@ import NProgress from "nprogress";
 const movieList = ref();
 const route = useRoute();
 const router = useRouter();
+const startDate = ref("");
+const endDate = ref("");
 const currentPage = computed({
   set: (value: any) => {
     route.query.page = value;
@@ -143,9 +145,7 @@ const dataAction = (data:any) :void=>{
 onMounted(async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(
-      `${currentPage.value}`,
-      "popularity.desc"
+    let { data } = await GetMovieList(`${currentPage.value}`,"popularity.desc" , startDate.value,endDate.value
     );
     dataAction(data)
 
@@ -165,7 +165,7 @@ const getMovieItem = (index: number) => {
 const nextPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`);
+    let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`,"popularity.desc" , startDate.value,endDate.value);
     console.log(data);
     dataAction(data)
   } catch (error) {
@@ -178,7 +178,7 @@ const nextPageHandel = async () => {
 const previousPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`);
+    let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`,"popularity.desc" , startDate.value,endDate.value);
     dataAction(data)
   } catch (error) {
     throw error;
@@ -214,8 +214,7 @@ const popularityOrder = async () => {
 ///////////////////////////////////////////////
 
 
-const startDate = ref("");
-const endDate = ref("");
+
 
 const searchByDate = async () => {
   NProgress.start();
