@@ -97,7 +97,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getMovieCredits, GetMovieDetails } from "../../services/api";
+import { getMovieCreditsApi, GetMovieDetailsApi } from "../../services/TheApi";
 import {CreditModel} from './../../models/CreditsModel';
 const route = useRoute();
 const router = useRouter();
@@ -109,8 +109,8 @@ const movieTransition = ref(false);
 const credits = ref<CreditModel[]>([])
 onMounted(async () => {
   try {
-    let { data } = await GetMovieDetails(movieId.value);
-    let movieCredits = await getMovieCredits(movieId.value)
+    let { data } = await GetMovieDetailsApi(movieId.value);
+    let movieCredits = await getMovieCreditsApi(movieId.value)
     
     credits.value = movieCredits.data.cast
     movieItem.value = data;
