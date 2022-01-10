@@ -84,9 +84,10 @@
           </p>
           <strong class="mb-2 block">Credit:</strong>
           <p>
-            Zoe Saldanna , Vin Diesel , Chris Pratt , Bradley Cooper , Lee Pace
-            , Zoe Saldanna , Vin Diesel , Chris Pratt , Bradley Cooper , Lee
-            Pace and 19 more.
+            <template v-for="item in credits">
+            {{item.name}},
+            </template>
+       
           </p>
         </div>
       </div>
@@ -96,7 +97,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { GetMovieDetails } from "../../services/api";
+import { getMovieCredits, GetMovieDetails } from "../../services/api";
 const route = useRoute();
 const router = useRouter();
 const movieId = ref("");
@@ -104,9 +105,13 @@ const movieId = ref("");
 movieId.value = `${route.params.id}`;
 const movieItem = ref();
 const movieTransition = ref(false);
+const credits = ref([])
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetails(movieId.value);
+    let movieCredits = await getMovieCredits(movieId.value)
+    
+    credits.value = movieCredits.data.cast
     movieItem.value = data;
     movieTransition.value = !movieTransition.value;
     window.scrollTo(0, 0);

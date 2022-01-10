@@ -26,3 +26,7 @@ export const GetMovieDetails = (movieId: string) => {
 export const GetGenres = () => {
   return DATA.get(`/genre/movie/list?api_key=${apiKey}&language=en-US`);
 };
+
+export const getMovieCredits = (movieId:string) => {
+  return DATA.get(`movie/${movieId}/credits?api_key=${apiKey}&language=en-US`);
+}
