@@ -60,7 +60,7 @@
         <div
           class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-12"
         >
-          <template v-for="(item, index) in movieList" :key="index">
+          <template v-for="(item, index) in movieList" :key="movieList.id">
             <MovieCard
               :title="item.title"
               :date="item.release_date"
@@ -74,11 +74,11 @@
     </section>
     <section class="py-5 lg:py-10">
       <div class="flex justify-center items-center text-3xl">
-        <button class="capitalize" :class="startItem == 1 ? 'text-gray-500': 'text-green-500'" @click="previousPageHandel">
+        <button class="capitalize" :class="startItem == 1 ? 'text-gray-500': 'text-green-500'" @click="previousPageHandel" :disabled="previousPageDisabled">
           <i class="icon--angle-double-left"></i>
         </button>
         <div class="h-[25px] bg-gray-400 w-[2px] mx-3"></div>
-        <button class="text-green-500 capitalize text-3xl" @click="nextPageHandel">
+        <button class="text-green-500 capitalize text-3xl" @click="nextPageHandel" :disabled="nextPageDisabled">
           <i class="icon--angle-double-right"></i>
         </button>
       </div>
@@ -92,7 +92,7 @@
 import MovieCard from "./../../components/MovieCard.vue";
 import SearchBar from "../../components/SearchBar.vue";
 import { computed, onBeforeMount, onMounted, ref } from "vue";
-import { GetGenres, GetMovieList } from "../../services/api";
+import { GetGenresApi, GetMovieListApi } from "../../services/TheApi";
 import { useRoute, useRouter } from "vue-router";
 import NProgress from "nprogress";
 const movieList = ref();
@@ -116,7 +116,7 @@ const currentPage = computed({
 const genresList = ref();
 onBeforeMount(async () => {
   try {
-    let { data } = await GetGenres();
+    let { data } = await GetGenresApi();
     genresList.value = data.genres;
   } catch (error) {
     throw error;
@@ -125,6 +125,8 @@ onBeforeMount(async () => {
 
 const startItem = ref(1);
 const endItem = ref(20);
+const previousPageDisabled = ref(false);
+const nextPageDisabled = ref(false);
 
 const dataAction = (data:any) :void=>{
     console.log('dataAction method is call');
@@ -136,6 +138,12 @@ const dataAction = (data:any) :void=>{
         .map((item: any) => item.name);
     });
     console.log(movieList.value);
+    if(startItem.value = 1){
+      previousPageDisabled.value = true
+    }
+    if(data.results.length){
+      nextPageDisabled.value = true
+    }
     startItem.value = data.page * data.results.length + 1 - data.results.length;
     endItem.value = startItem.value + (data.results.length - 1);
     router.push({ name: "TheUserHome", query: { page: data.page } });
@@ -145,7 +153,7 @@ const dataAction = (data:any) :void=>{
 onMounted(async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`${currentPage.value}`,"popularity.desc" , startDate.value,endDate.value
+    let { data } = await GetMovieListApi(`${currentPage.value}`,"popularity.desc" , startDate.value,endDate.value
     );
     dataAction(data)
 
@@ -162,10 +170,13 @@ const getMovieItem = (index: number) => {
   NProgress.done();
 };
 
+
+
+
 const nextPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`${Number(currentPage.value) + 1}`,"popularity.desc" , startDate.value,endDate.value);
+    let { data } = await GetMovieListApi(`${Number(currentPage.value) + 1}`,"popularity.desc" , startDate.value,endDate.value);
     console.log(data);
     dataAction(data)
   } catch (error) {
@@ -178,7 +189,7 @@ const nextPageHandel = async () => {
 const previousPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`${Number(currentPage.value) - 1}`,"popularity.desc" , startDate.value,endDate.value);
+    let { data } = await GetMovieListApi(`${Number(currentPage.value) - 1}`,"popularity.desc" , startDate.value,endDate.value);
     dataAction(data)
   } catch (error) {
     throw error;
@@ -201,7 +212,7 @@ const popularityOrder = async () => {
   popularity.value = popularity.value == "popularity.desc" ? "popularity.asc" : "popularity.desc";
   NProgress.start();
   try {
-    let { data } = await GetMovieList(`1`, popularity.value);
+    let { data } = await GetMovieListApi(`1`, popularity.value);
     dataAction(data)
   } catch (error) {
     throw error;
@@ -219,7 +230,7 @@ const popularityOrder = async () => {
 const searchByDate = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieList(
+    let { data } = await GetMovieListApi(
       "1", "popularity.desc", startDate.value,endDate.value
       
     );
