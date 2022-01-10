@@ -21,11 +21,11 @@ export interface CreditModel {
 
 // Converts JSON strings to/from your types
 export class Convert {
-  public static toCredits(json: string): Credits {
+  public static toCredits(json: string): CreditModel {
     return JSON.parse(json);
   }
 
-  public static creditsToJson(value: Credits): string {
+  public static creditsToJson(value: CreditModel): string {
     return JSON.stringify(value);
   }
 }
