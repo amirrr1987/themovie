@@ -84,7 +84,7 @@
           </p>
           <strong class="mb-2 block">Credit:</strong>
           <p>
-            <template v-for="item in credits">
+            <template v-for="(item, index) in credits" :key="index">
             {{item.name}},
             </template>
        
@@ -98,6 +98,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getMovieCredits, GetMovieDetails } from "../../services/api";
+import {CreditModel} from './../../models/CreditsModel';
 const route = useRoute();
 const router = useRouter();
 const movieId = ref("");
@@ -105,7 +106,7 @@ const movieId = ref("");
 movieId.value = `${route.params.id}`;
 const movieItem = ref();
 const movieTransition = ref(false);
-const credits = ref([])
+const credits = ref<CreditModel[]>([])
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetails(movieId.value);
