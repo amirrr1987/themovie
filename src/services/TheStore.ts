@@ -1,12 +1,12 @@
 import { reactive, readonly } from "vue";
 
-const state = reactive<any>({});
+const State = reactive<any>({});
 
-export const getDataStore = (key: symbol) => {
-  return state[key];
+export const GetDataStore = (key: symbol) => {
+  return State[key];
 };
-export const setDataStore = (key: symbol, value: any) => {
-  state[key] = value;
+export const SetDataStore = (key: symbol, value: any) => {
+  State[key] = value;
 };
 
-export default { state: readonly(state), getDataStore, setDataStore };
+export default { state: readonly(State), GetDataStore, SetDataStore };
