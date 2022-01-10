@@ -1,9 +1,9 @@
 <template>
-  <div class="hidden">{{ store }}</div>
+  <div class="hidden">{{ TheStore }}</div>
   <router-view />
 </template>
 <script setup lang="ts">
-import store from "./services/store";
+import TheStore from "./services/TheStore";
 </script>
 <style>
 html {
