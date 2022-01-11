@@ -11,6 +11,7 @@
     "nprogress": "^0.2.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12",
+    "vue-skeletor": "^1.0.6",
     "vue3-lazyload": "^0.2.5-beta"
   },
   "devDependencies": {

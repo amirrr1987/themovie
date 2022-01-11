@@ -95,6 +95,7 @@ import { computed, onBeforeMount, onMounted, ref } from "vue";
 import { GetGenresApi, GetMovieListApi } from "../../services/TheApi";
 import { useRoute, useRouter } from "vue-router";
 import NProgress from "nprogress";
+
 const movieList = ref();
 const route = useRoute();
 const router = useRouter();
@@ -141,7 +142,7 @@ const dataAction = (data:any) :void=>{
     if(startItem.value = 1){
       previousPageDisabled.value = true
     }
-    if(data.results.length){
+    if(!data.results.length){
       nextPageDisabled.value = true
     }
     startItem.value = data.page * data.results.length + 1 - data.results.length;
