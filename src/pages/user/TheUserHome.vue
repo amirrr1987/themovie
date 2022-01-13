@@ -1,8 +1,8 @@
 <template>
   <div class="the-home">
     <div class="container mx-auto">
-      <div class="grid lg:grid-cols-[max-content,1fr] gap-5 p-5">
-        <aside class="grid auto-rows-max gap-y-5">
+      <div class="grid lg:grid-cols-[max-content,1fr] gap-3 p-3 ">
+        <aside class="grid auto-rows-max gap-y-3">
           <div class="">
             <input
               class="border py-1 px-3 rounded block w-full"
@@ -12,12 +12,26 @@
           </div>
           <div class="">
             <label for="">dd</label>
-            <input class="border py-1 px-3 rounded block w-full" type="number" />
+            <input
+              class="border py-1 px-3 rounded block w-full"
+              type="number"
+            />
           </div>
           <div class="">
+            <label for="">includes:</label>
             <select class="border py-1 px-3 rounded block w-full">
-              <option  v-for="(item,index) in genresList" value="" :key="index">{{item.name}}</option>
-            </select>          
+              <option v-for="(item, index) in genresList" value="" :key="index">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="">
+            <label for="">NOT includes:</label>
+            <select class="border py-1 px-3 rounded block w-full">
+              <option v-for="(item, index) in genresList" value="" :key="index">
+                {{ item.name }}
+              </option>
+            </select>
           </div>
           <div class="">
             <input class="block" type="checkbox" />
@@ -26,13 +40,12 @@
             <input class="block" type="checkbox" />
           </div>
           <div class="">
-            <input class="block" type="checkbox" />
+            <label for="">Score :</label>
+            <input class="block w-full" type="range" />
           </div>
         </aside>
         <section class="">
-          <div
-            class="grid md:grid-cols-2 lg:grid-cols-2 gap-5 lg:p-5"
-          >
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 px-3">
             <template v-for="(item, index) in movieList" :key="movieList.id">
               <MovieCard
                 :title="item.title"
@@ -119,12 +132,7 @@ const dataAction = (data: any): void => {
       .filter((genre: any) => item.genre_ids.includes(genre.id))
       .map((item: any) => item.name);
   });
-  // if ((startItem.value = 1)) {
-    previousPageDisabled.value = true;
-  // }
-  // if (!data.results.length) {
-    nextPageDisabled.value = true;
-  // }
+// previousPageDisabled.value = true;
   startItem.value = data.page * data.results.length + 1 - data.results.length;
   endItem.value = startItem.value + (data.results.length - 1);
   router.push({ name: "TheUserHome", query: { page: data.page } });
@@ -163,7 +171,6 @@ const nextPageHandel = async () => {
       startDate.value,
       endDate.value
     );
-  
     dataAction(data);
   } catch (error) {
     throw error;
