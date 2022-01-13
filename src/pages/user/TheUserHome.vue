@@ -119,12 +119,12 @@ const dataAction = (data: any): void => {
       .filter((genre: any) => item.genre_ids.includes(genre.id))
       .map((item: any) => item.name);
   });
-  if ((startItem.value = 1)) {
+  // if ((startItem.value = 1)) {
     previousPageDisabled.value = true;
-  }
-  if (!data.results.length) {
+  // }
+  // if (!data.results.length) {
     nextPageDisabled.value = true;
-  }
+  // }
   startItem.value = data.page * data.results.length + 1 - data.results.length;
   endItem.value = startItem.value + (data.results.length - 1);
   router.push({ name: "TheUserHome", query: { page: data.page } });
