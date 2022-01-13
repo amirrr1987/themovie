@@ -8,17 +8,7 @@
             <span>{{ movieItem.tagline }}</span>
           </div>
           <button
-            class="
-              bg-[#549DF2]
-              capitalize
-              self-center
-              w-full
-              md:w-auto md:px-10
-              py-2
-              rounded-full
-              text-white
-              md:mr-10 md:order-1
-            "
+            class="bg-[#549DF2] capitalize self-center w-full md:w-auto md:px-10 py-2 rounded-full text-white md:mr-10 md:order-1"
             @click="goBackHome"
           >
             back
@@ -27,7 +17,7 @@
         <div class="py-5">
           <div class="grid md:grid-cols-[300px,1fr] gap-10 mb-5">
             <img
-            v-if="!loading"
+              v-if="!loading"
               class="w-full md:w-80 rounded"
               v-lazy="{
                 src: `https://image.tmdb.org/t/p/w400${movieItem.poster_path}`,
@@ -36,31 +26,45 @@
               }"
               alt=""
             />
-             
-                  <Skeletor v-else class="w-[300px] rounded block" />
-                
 
+            <Skeletor v-else class="w-[300px] rounded block" />
 
             <div class="">
               <div class="flex justify-between mb-2">
                 <span>Budget</span>
                 <span v-if="loading">{{ movieItem.budget }}</span>
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                <Skeletor
+                  v-show="!loading"
+                  class="!w-[100px] !aspect-[32/9] rounded block"
+                  size="100%"
+                />
               </div>
               <div class="flex justify-between mb-2">
                 <span>Revenue</span>
                 <span>${{ movieItem.revenue }}</span>
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                <Skeletor
+                  v-show="!loading"
+                  class="!w-[100px] !aspect-[32/9] rounded block"
+                  size="100%"
+                />
               </div>
               <div class="flex justify-between mb-2">
                 <span>Release Date</span>
                 <span>{{ movieItem.release_date }}</span>
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                <Skeletor
+                  v-show="!loading"
+                  class="!w-[100px] !aspect-[32/9] rounded block"
+                  size="100%"
+                />
               </div>
               <div class="flex justify-between mb-2">
                 <span>Runtime</span>
                 <span>{{ runtime }}</span>
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                <Skeletor
+                  v-show="!loading"
+                  class="!w-[100px] !aspect-[32/9] rounded block"
+                  size="100%"
+                />
               </div>
               <div class="flex justify-between mb-2">
                 <span>Score</span>
@@ -70,7 +74,11 @@
                   }}
                   votes)</span
                 >
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                <Skeletor
+                  v-show="!loading"
+                  class="!w-[100px] !aspect-[32/9] rounded block"
+                  size="100%"
+                />
               </div>
               <div class="flex justify-between mb-2">
                 <span>Genres</span>
@@ -78,7 +86,11 @@
                   <template v-for="item in movieItem.genres" :key="item">
                     <span class="mr-1">{{ item.name }},</span>
                   </template>
-                <Skeletor v-show="!loading" class="!w-[100px] !aspect-[32/9] rounded block" size="100%"/>
+                  <Skeletor
+                    v-show="!loading"
+                    class="!w-[100px] !aspect-[32/9] rounded block"
+                    size="100%"
+                  />
                 </div>
               </div>
               <div class="flex justify-between mb-2">
@@ -88,10 +100,9 @@
               <div class="flex justify-between mb-2">
                 <span>Homepage Link</span>
                 <a :href="movieItem.homepage" target="_blank">
-                  Link 
+                  Link
                   <Skeletor :shimmer="shimmer" v-show="loading" size="100%" />
                 </a>
-            
               </div>
             </div>
           </div>
@@ -101,9 +112,8 @@
           <strong class="mb-2 block">Credit:</strong>
           <p>
             <template v-for="(item, index) in credits" :key="index">
-            {{item.name}},
+              {{ item.name }},
             </template>
-       
           </p>
         </div>
       </div>
@@ -114,9 +124,9 @@
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getMovieCreditsApi, GetMovieDetailsApi } from "../../services/TheApi";
-import {CreditModel} from './../../models/CreditsModel';
+import { CreditModel } from "./../../models/CreditsModel";
 import "vue-skeletor/dist/vue-skeletor.css";
-import { Skeletor } from 'vue-skeletor';
+import { Skeletor } from "vue-skeletor";
 
 const route = useRoute();
 const router = useRouter();
@@ -125,25 +135,23 @@ const movieId = ref("");
 movieId.value = `${route.params.id}`;
 const movieItem = ref();
 const movieTransition = ref(false);
-const credits = ref<CreditModel[]>([])
-const loading = ref(true)
-const shimmer = ref(true)
+const credits = ref<CreditModel[]>([]);
+const loading = ref(true);
+const shimmer = ref(true);
 onMounted(async () => {
   try {
     let { data } = await GetMovieDetailsApi(movieId.value);
-    let movieCredits = await getMovieCreditsApi(movieId.value)
-    
-    credits.value = movieCredits.data.cast
+    let movieCredits = await getMovieCreditsApi(movieId.value);
+
+    credits.value = movieCredits.data.cast;
     movieItem.value = data;
     movieTransition.value = !movieTransition.value;
     window.scrollTo(0, 0);
-    loading.value = false
+    loading.value = false;
   } catch (error) {
-    console.log(error);
-    shimmer.value = false
-
+    shimmer.value = false;
+    throw error;
   }
-
 });
 const runtime = computed(() => {
   let h = Math.floor(movieItem.value.runtime / 60);

@@ -1,91 +1,74 @@
 <template>
   <div class="the-home">
-    <section class="py-10">
-      <div class="container mx-auto px-5">
-        <SearchBar />
-        <div class="shadow drop-shadow my-1 py-3 grid gap-5 md:grid-cols-[max-content,1fr]">
-          <button
-            class="
-              mx-5
-              bg-blue-500
-              px-5
-              py-2
-              text-white
-              rounded
-              capitalize
-              flex
-              items-center
-            "
-            @click="popularityOrder"
-          >
-            popularity
-            <i
-              class="text-xs"
-              :class="
-                popularity == 'popularity.desc' ? 'icon--sort-down' : 'icon--sort-up'
-              "
-            ></i>
-          </button>
-          <form class="grid md:grid-cols-[max-content,max-content,max-content] gap-5" @submit.prevent="searchByDate">
-            <div class="mx-3 capitalize">
-              <label for="start" class="w-20 inline-block mr-2">start date:</label>
-              <input
-                name="start"
-                type="date"
-                class="border px-3 py-1"
-                v-model="startDate"
-              />
-            </div>
-            <div class="mx-3">
-              <label for="end" class="w-20 inline-block mr-2">end date:</label>
-              <input
-                name="edn"
-                type="date"
-                class="border px-3 py-1"
-                v-model="endDate"
-              />
-            </div>
-            <button
-              type="submit"
-              class="bg-blue-500 text-blue-50 px-5 py-2 rounded-full"
-            >
-              Search Date
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div class="container mx-auto px-5">
-        <div
-          class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-12"
-        >
-          <template v-for="(item, index) in movieList" :key="movieList.id">
-            <MovieCard
-              :title="item.title"
-              :date="item.release_date"
-              :imgSrc="item.poster_path"
-              :genres="item.genres"
-              @click="getMovieItem(item.id)"
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-[max-content,1fr] gap-5 p-5">
+        <aside class="grid auto-rows-max gap-y-5">
+          <div class="">
+            <input
+              class="border py-1 px-3 rounded block w-full"
+              type="text"
+              placeholder="search"
             />
-          </template>
-        </div>
+          </div>
+          <div class="">
+            <label for="">dd</label>
+            <input class="border py-1 px-3 rounded block w-full" type="number" />
+          </div>
+          <div class="">
+            <select class="border py-1 px-3 rounded block w-full">
+              <option  v-for="(item,index) in genresList" value="" :key="index">{{item.name}}</option>
+            </select>          
+          </div>
+          <div class="">
+            <input class="block" type="checkbox" />
+          </div>
+          <div class="">
+            <input class="block" type="checkbox" />
+          </div>
+          <div class="">
+            <input class="block" type="checkbox" />
+          </div>
+        </aside>
+        <section class="">
+          <div
+            class="grid md:grid-cols-2 lg:grid-cols-2 gap-5 lg:p-5"
+          >
+            <template v-for="(item, index) in movieList" :key="movieList.id">
+              <MovieCard
+                :title="item.title"
+                :date="item.release_date"
+                :imgSrc="item.poster_path"
+                :genres="item.genres"
+                @click="getMovieItem(item.id)"
+              />
+            </template>
+          </div>
+          <div class="py-5 lg:py-10">
+            <div class="flex justify-center items-center text-3xl">
+              <button
+                class="capitalize"
+                :class="startItem == 1 ? 'text-gray-500' : 'text-green-500'"
+                @click="previousPageHandel"
+                :disabled="previousPageDisabled"
+              >
+                <i class="icon--angle-double-left"></i>
+              </button>
+              <div class="h-[25px] bg-gray-400 w-[2px] mx-3"></div>
+              <button
+                class="text-green-500 capitalize text-3xl"
+                @click="nextPageHandel"
+                :disabled="nextPageDisabled"
+              >
+                <i class="icon--angle-double-right"></i>
+              </button>
+            </div>
+            <div class="text-center">
+              Showing results {{ startItem }}-{{ endItem }}
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-    <section class="py-5 lg:py-10">
-      <div class="flex justify-center items-center text-3xl">
-        <button class="capitalize" :class="startItem == 1 ? 'text-gray-500': 'text-green-500'" @click="previousPageHandel" :disabled="previousPageDisabled">
-          <i class="icon--angle-double-left"></i>
-        </button>
-        <div class="h-[25px] bg-gray-400 w-[2px] mx-3"></div>
-        <button class="text-green-500 capitalize text-3xl" @click="nextPageHandel" :disabled="nextPageDisabled">
-          <i class="icon--angle-double-right"></i>
-        </button>
-      </div>
-      <div class="text-center">
-        Showing results {{ startItem }}-{{ endItem }}
-      </div>
-    </section>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -129,35 +112,35 @@ const endItem = ref(20);
 const previousPageDisabled = ref(false);
 const nextPageDisabled = ref(false);
 
-const dataAction = (data:any) :void=>{
-    console.log('dataAction method is call');
-    console.log(data);
-    movieList.value = data.results;
-    movieList.value.forEach((item: any) => {
-      item.genres = genresList.value
-        .filter((genre: any) => item.genre_ids.includes(genre.id))
-        .map((item: any) => item.name);
-    });
-    console.log(movieList.value);
-    if(startItem.value = 1){
-      previousPageDisabled.value = true
-    }
-    if(!data.results.length){
-      nextPageDisabled.value = true
-    }
-    startItem.value = data.page * data.results.length + 1 - data.results.length;
-    endItem.value = startItem.value + (data.results.length - 1);
-    router.push({ name: "TheUserHome", query: { page: data.page } });
-    window.scrollTo(0, 0);
-}
+const dataAction = (data: any): void => {
+  movieList.value = data.results;
+  movieList.value.forEach((item: any) => {
+    item.genres = genresList.value
+      .filter((genre: any) => item.genre_ids.includes(genre.id))
+      .map((item: any) => item.name);
+  });
+  if ((startItem.value = 1)) {
+    previousPageDisabled.value = true;
+  }
+  if (!data.results.length) {
+    nextPageDisabled.value = true;
+  }
+  startItem.value = data.page * data.results.length + 1 - data.results.length;
+  endItem.value = startItem.value + (data.results.length - 1);
+  router.push({ name: "TheUserHome", query: { page: data.page } });
+  window.scrollTo(0, 0);
+};
 
 onMounted(async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieListApi(`${currentPage.value}`,"popularity.desc" , startDate.value,endDate.value
+    let { data } = await GetMovieListApi(
+      `${currentPage.value}`,
+      "popularity.desc",
+      startDate.value,
+      endDate.value
     );
-    dataAction(data)
-
+    dataAction(data);
   } catch (error) {
     throw error;
   } finally {
@@ -171,15 +154,17 @@ const getMovieItem = (index: number) => {
   NProgress.done();
 };
 
-
-
-
 const nextPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieListApi(`${Number(currentPage.value) + 1}`,"popularity.desc" , startDate.value,endDate.value);
-    console.log(data);
-    dataAction(data)
+    let { data } = await GetMovieListApi(
+      `${Number(currentPage.value) + 1}`,
+      "popularity.desc",
+      startDate.value,
+      endDate.value
+    );
+  
+    dataAction(data);
   } catch (error) {
     throw error;
   } finally {
@@ -190,8 +175,13 @@ const nextPageHandel = async () => {
 const previousPageHandel = async () => {
   NProgress.start();
   try {
-    let { data } = await GetMovieListApi(`${Number(currentPage.value) - 1}`,"popularity.desc" , startDate.value,endDate.value);
-    dataAction(data)
+    let { data } = await GetMovieListApi(
+      `${Number(currentPage.value) - 1}`,
+      "popularity.desc",
+      startDate.value,
+      endDate.value
+    );
+    dataAction(data);
   } catch (error) {
     throw error;
   } finally {
@@ -210,11 +200,14 @@ const previousPageHandel = async () => {
  */
 const popularity = ref("popularity.desc");
 const popularityOrder = async () => {
-  popularity.value = popularity.value == "popularity.desc" ? "popularity.asc" : "popularity.desc";
+  popularity.value =
+    popularity.value == "popularity.desc"
+      ? "popularity.asc"
+      : "popularity.desc";
   NProgress.start();
   try {
     let { data } = await GetMovieListApi(`1`, popularity.value);
-    dataAction(data)
+    dataAction(data);
   } catch (error) {
     throw error;
   } finally {
@@ -225,24 +218,21 @@ const popularityOrder = async () => {
 // End: popularity Order
 ///////////////////////////////////////////////
 
-
-
-
 const searchByDate = async () => {
   NProgress.start();
   try {
     let { data } = await GetMovieListApi(
-      "1", "popularity.desc", startDate.value,endDate.value
-      
+      "1",
+      "popularity.desc",
+      startDate.value,
+      endDate.value
     );
-    console.log(data);
     movieList.value = data.results;
     movieList.value.forEach((item: any) => {
       item.genres = genresList.value
         .filter((genre: any) => item.genre_ids.includes(genre.id))
         .map((item: any) => item.name);
     });
-    console.log(movieList.value);
     startItem.value = data.page * data.results.length + 1 - data.results.length;
     endItem.value = startItem.value + (data.results.length - 1);
     router.push({ name: "TheUserHome", query: { page: data.page } });
