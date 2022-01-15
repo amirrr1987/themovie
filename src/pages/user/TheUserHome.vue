@@ -45,7 +45,7 @@
           </div>
         </aside>
         <section class="">
-          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 px-3">
+          <div class="grid md:grid-cols-2 xl:grid-cols-3  gap-5  px-3 md:px-5">
             <template v-for="(item, index) in movieList" :key="movieList.id">
               <MovieCard
                 :title="item.title"
