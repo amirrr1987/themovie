@@ -10,8 +10,10 @@
     "axios": "^0.24.0",
     "nprogress": "^0.2.0",
     "vue": "^3.2.25",
+    "vue-agile": "^2.0.0",
     "vue-router": "^4.0.12",
     "vue-skeletor": "^1.0.6",
+    "vue3-carousel": "^0.1.36",
     "vue3-lazyload": "^0.2.5-beta"
   },
   "devDependencies": {

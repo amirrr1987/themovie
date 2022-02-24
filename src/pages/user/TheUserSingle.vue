@@ -32,7 +32,7 @@
             <div class="">
               <div class="flex justify-between mb-2">
                 <span>Budget</span>
-                <span>{{ movieItem.budget }}</span>
+                <span>${{ movieItem.budget }}</span>
               </div>
               <div class="flex justify-between mb-2">
                 <span>Revenue</span>

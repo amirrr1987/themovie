@@ -1,5 +1,6 @@
 <template>
   <div class="the-home">
+    <PosterSlider/>
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-[max-content,1fr] gap-3 p-3 ">
         <aside class="grid auto-rows-max gap-y-3">
@@ -91,6 +92,7 @@ import { computed, onBeforeMount, onMounted, ref } from "vue";
 import { GetGenresApi, GetMovieListApi } from "../../services/TheApi";
 import { useRoute, useRouter } from "vue-router";
 import NProgress from "nprogress";
+import PosterSlider from "../../components/PosterSlider.vue";
 
 const movieList = ref();
 const route = useRoute();
