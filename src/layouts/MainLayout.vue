@@ -15,6 +15,7 @@
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+
       <div class="q-pa-md">
         <div class="q-gutter-md">
           <q-input v-model="text" label="Search" @keyup="searchIt" />
@@ -22,6 +23,7 @@
           <q-select v-model="model" :options="options" label="Standard" @update:model-value="sortIt" />
         </div>
       </div>
+
     </q-drawer>
 
     <q-page-container>
@@ -89,5 +91,7 @@ const withGenres = ref('')
 const genreIt = () => {
     moviesStore.getMovies(`&with_genres=${withGenres.value}`)
 }
+
+
 
 </script>
