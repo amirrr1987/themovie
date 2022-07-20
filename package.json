@@ -1,29 +1,31 @@
 {
   "name": "themovie",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "themovie",
+  "productName": "themovie",
+  "author": "Amir Maghami",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "nprogress": "^0.2.0",
-    "vue": "^3.2.25",
-    "vue-agile": "^2.0.0",
-    "vue-router": "^4.0.12",
-    "vue-skeletor": "^1.0.6",
-    "vue3-carousel": "^0.1.36",
-    "vue3-lazyload": "^0.2.5-beta"
+    "axios": "^0.21.1",
+    "vue-i18n": "^9.0.0",
+    "@quasar/extras": "^1.0.0",
+    "quasar": "^2.6.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.0",
-    "@vitejs/plugin-vue": "^2.0.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.7",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.2",
-    "vue-tsc": "^0.29.8"
+    "@types/node": "^12.20.21",
+    "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+    "@quasar/app-vite": "^1.0.0",
+    "autoprefixer": "^10.4.2",
+    "typescript": "^4.5.4"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
   }
 }
