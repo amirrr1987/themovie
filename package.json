@@ -6,7 +6,9 @@
   "author": "Amir Maghami",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+  "dev": "quasar dev",
+  "build": "quasar build",
+  "build:pwa": "quasar build -m pwa"
   },
   "dependencies": {
     "axios": "^0.21.1",
