@@ -2,10 +2,16 @@
   <router-view />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-export default defineComponent({
-  name: 'App'
-});
+import { onMounted } from 'vue';
+import { useMoviesStore } from './stores'
+
+const moviesStore = useMoviesStore()
+
+
+onMounted(() => {
+  moviesStore.getMovies()
+  moviesStore.getGenres()
+})
 </script>

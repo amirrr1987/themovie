@@ -1,49 +1,69 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div class="q-pa-md">
+    <div class="row">
+      <template v-for="(movie) in moviesStore.results" :key="movie">
+        <div class="col-4">
+          <q-card class="q-ma-lg">
+            <q-card-section horizontal>
+              <q-img class="col-4" :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" />
+              <q-card-section>
+                <q-card-section>
+                  <div class="text-h6">{{ movie.title }}</div>
+                  <div class="text-caption text-grey">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
+                  </div>
+                </q-card-section>
+                <q-separator class="q-mb-xs" />
+                <q-card-actions>
+                  <div>
+                    <q-icon name="event" size="1.68em" />
+                    <span class="q-pa-sm"> {{ movie.release_date }}</span>
+                  </div>
+                </q-card-actions>
+                <q-card-actions>
+                  <div>
+                    <template v-for="genre in movie.genre_ids">
+                      <span>{{ getGenre(genre).name ?? '' }}</span>
+                      <q-icon name="radio_button_checked" size="0.6em" class="q-mx-xs" />
+                    </template>
+                  </div>
+                </q-card-actions>
+                <q-card-actions>
+                  <q-btn :to="`/${movie.id}`" label="more" flat color="primary" />
+                </q-card-actions>
+              </q-card-section>
+            </q-card-section>
+          </q-card>
+        </div>
+      </template>
+    </div>
+
+
+    <div class="row">
+      <div class="col">
+        <q-pagination v-model="current" :max="moviesStore.total_pages" input input-class="text-orange-10"
+          @update:model-value="getCurrent" />
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { defineComponent, ref } from 'vue';
 
-export default defineComponent({
-  name: 'IndexPage',
-  components: { ExampleComponent },
-  setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
-});
+<script setup lang="ts">
+import {  ref } from 'vue'
+import { useMoviesStore } from '../stores'
+
+
+const moviesStore = useMoviesStore()
+
+const current = ref(1)
+const getCurrent = () => {
+  moviesStore.setCurrentPage(current.value)
+}
+
+const getGenre = (id: number) => {
+  return moviesStore.genres.find((genre:any) => genre.id == id) ?? ''
+}
+
 </script>

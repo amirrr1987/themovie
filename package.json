@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "description": "themovie",
   "productName": "themovie",
-  "author": "Amir Maghami",
+  "author": "amirrr1987 <maghami.a1987@gmail.com>",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "build:pwa": "quasar build -m pwa"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "vue-i18n": "^9.0.0",
+    "pinia": "^2.0.11",
     "@quasar/extras": "^1.0.0",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
