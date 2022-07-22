@@ -22,7 +22,7 @@
                   </div>
                 </q-card-actions>
                 <q-card-actions>
-                  <div>
+                  <div class="genre-list">
                     <template v-for="genre in movie.genre_ids">
                       <span>{{ getGenre(genre).name ?? '' }}</span>
                       <q-icon name="radio_button_checked" size="0.6em" class="q-mx-xs" />
@@ -67,3 +67,10 @@ const getGenre = (id: number) => {
 }
 
 </script>
+<style lang="scss">
+.genre-list{
+  .q-icon:last-child{
+    display: none !important;
+  }
+}
+</style>

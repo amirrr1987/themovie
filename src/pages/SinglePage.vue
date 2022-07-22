@@ -13,6 +13,7 @@
             <div class="col-12 col-md-9">
 
                 <div class="q-pa-md">
+                    
                     <div class="full-width row wrap justify-between q-mb-md">
                         <div class="">Title:</div>
                         <div class="">
@@ -56,9 +57,10 @@
 
                     <div class="full-width row wrap justify-between q-mb-md">
                         <div>genres:</div>
-                        <div>
+                        <div class="genre-list">
                             <template v-for="item in moviesStore.movie.genres" :key="item">
                                 <span class="q-ml-sm">{{ item.name }}</span>
+                                <q-icon name="radio_button_checked" size="0.6em" class="q-mx-xs" />
                             </template>
                         </div>
                     </div>
@@ -88,9 +90,5 @@ onMounted(() => {
     console.log(route.params.id);
     moviesStore.getMovie(`${route.params.id}`)
 })
-
-const getGenre = (id: number) => {
-    return moviesStore.genres.find((genre: any) => genre.id == id) ?? ''
-}
 
 </script>

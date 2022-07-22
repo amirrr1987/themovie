@@ -6,10 +6,8 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Title
+          <q-btn flat icon="arrow_back" to="/" />
+          The Movie
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -32,12 +30,7 @@
 
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          <div>Title</div>
-        </q-toolbar-title>
+        <q-btn flat href="http://amirmaghami.ir/" target="_blank" >Amir Maghami</q-btn>
       </q-toolbar>
     </q-footer>
 
