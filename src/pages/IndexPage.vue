@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <div class="row">
       <template v-for="(movie) in moviesStore.results" :key="movie">
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-4">
           <q-card class="q-ma-lg">
             <q-card-section horizontal>
               <q-img class="col-4" :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" />
