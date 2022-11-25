@@ -19,7 +19,7 @@ export default store((/* { ssrContext } */) => {
   return pinia
 })
 import { defineStore } from 'pinia';
-import { GetGenresApi, GetMovieListApi, GetMovieApi } from '../services'
+// import { GetGenresApi, GetMovieListApi, GetMovieApi } from '../services'
 
 export const useMoviesStore = defineStore('movies', {
   state: () => ({
@@ -32,27 +32,6 @@ export const useMoviesStore = defineStore('movies', {
   }),
 
   actions: {
-    async getMovies(...filter: any) {
-      const { data } = await GetMovieListApi(this.page, ...filter);
-      this.results = data.results;
-      this.page = data.page;
-      this.total_pages = data.total_pages;
-      this.total_results = data.total_results;
-    },
 
-    async getGenres() {
-      const { data } = await GetGenresApi()
-      this.genres = data.genres;
-
-    },
-
-    setCurrentPage(page: number) { 
-      this.page = page;
-      this.getMovies();
-    },
-    async getMovie(id: string) { 
-      const { data } = await GetMovieApi(id);
-      this.movie = data;
-    }
   },
 });

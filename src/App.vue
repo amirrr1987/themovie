@@ -1,17 +1,16 @@
 <template>
-  <router-view />
+  <!-- <router-view /> -->
 </template>
 
 <script setup lang="ts">
 
 import { onMounted } from 'vue';
-import { useMoviesStore } from './stores'
+import { useListStore } from './stores/ListStore'
 
-const moviesStore = useMoviesStore()
+const listStore = useListStore()
 
 
 onMounted(() => {
-  moviesStore.getMovies()
-  moviesStore.getGenres()
+  listStore.GetListStore()
 })
 </script>

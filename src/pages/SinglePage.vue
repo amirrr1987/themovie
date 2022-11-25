@@ -6,13 +6,13 @@
             <div class="col-12 col-md-3">
 
                 <div class="q-pa-md">
-                    <q-img class="q-rounded"
-                        :src="`https://image.tmdb.org/t/p/w500/${moviesStore.movie.poster_path}`" />
+                    <!-- <q-img class="q-rounded"
+                        :src="`https://image.tmdb.org/t/p/w500/${moviesStore.movie.poster_path}`" /> -->
                 </div>
             </div>
             <div class="col-12 col-md-9">
 
-                <div class="q-pa-md">
+                <!-- <div class="q-pa-md">
                     
                     <div class="full-width row wrap justify-between q-mb-md">
                         <div class="">Title:</div>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -81,14 +81,14 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useMoviesStore } from '../stores';
+// import { useMoviesStore } from '../stores';
 
 const route = useRoute()
-const moviesStore = useMoviesStore()
+// const moviesStore = useMoviesStore()
 
 onMounted(() => {
     console.log(route.params.id);
-    moviesStore.getMovie(`${route.params.id}`)
+    // moviesStore.getMovie(`${route.params.id}`)
 })
 
 </script>

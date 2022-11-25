@@ -39,8 +39,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { useMoviesStore } from '../stores'
-const moviesStore = useMoviesStore()
+// import { useMoviesStore } from '../stores'
+// const moviesStore = useMoviesStore()
 
 
 const leftDrawerOpen = ref(false)
@@ -67,12 +67,12 @@ const text = ref('')
 const model = ref('')
 const searchIt = () => {
   if (text.value.length > 1) {
-    moviesStore.getMovies(`&query=${text.value}`)
+    // moviesStore.getMovies(`&query=${text.value}`)
   }
 }
 const sortIt = ()=>{
     console.log(2);
-  moviesStore.getMovies(`&sort_by=${model.value}`)
+  // moviesStore.getMovies(`&sort_by=${model.value}`)
 
 }
 
@@ -82,7 +82,7 @@ const toggleLeftDrawer = ()=> {
 
 const withGenres = ref('')
 const genreIt = () => {
-    moviesStore.getMovies(`&with_genres=${withGenres.value}`)
+    // moviesStore.getMovies(`&with_genres=${withGenres.value}`)
 }
 
 
