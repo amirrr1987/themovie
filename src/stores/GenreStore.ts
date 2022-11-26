@@ -21,6 +21,12 @@ export const useGenreStore = defineStore('Genre', () => {
 
     }
   }
+  const findGenreNameById = (id: number) => {
+    const index = state.genres.findIndex((single) => {
+      return single.id === id
+    })
+    return state.genres[index]?.name ?? ''
+  }
 
-  return { state, GetGenreMovieHandler }
+  return { state, GetGenreMovieHandler, findGenreNameById }
 })
