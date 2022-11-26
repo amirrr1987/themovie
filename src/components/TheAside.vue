@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-green-50">
+    <div class="border border-gray-200 rounded p-1">
         <div class="flex justify-between">
             Type
             <div class="flex items-center gap-x-1">
@@ -18,7 +18,7 @@ import { useDiscoverStore } from "@/stores/DiscoverStore";
 const asideStore = useAsideStore()
 const discoverStore = useDiscoverStore()
 const callApi = async () => {
-    await discoverStore.GetDiscoverMovieHandler(asideStore.state.category)
+    await discoverStore.GetDiscoverMovieHandler(asideStore.state.category, 2)
 }
 </script>
 

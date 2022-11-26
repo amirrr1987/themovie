@@ -1,16 +1,14 @@
 <template>
-  <!-- <router-view /> -->
-</template>
+  <RouterView />
 
+</template>
 <script setup lang="ts">
 
-import { onMounted } from 'vue';
-import { useListStore } from './stores/ListStore'
-
-const listStore = useListStore()
-
-
-onMounted(() => {
-  listStore.GetListStore()
-})
 </script>
+
+<style >
+.grid-cols-max-1fr{
+  grid-template-columns: max-content 1fr;
+}
+
+</style>

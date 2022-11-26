@@ -1,94 +1,97 @@
 <template>
+    <div class="py-12">
+        <Skeleton active avatar title size="large" class="border border-gray-200 p-4px rounded w-full"
+            :loading="loading">
+            <div class="grid grid-cols-4 gap-x-4">
+                <Image class="w-full h-full object-cover rounded shadow"
+                    :src="`https://image.tmdb.org/t/p/w500/${moviesStore.state.poster_path}`" alt="" />
+                <div class="col-span-3">
+                    <div class="grid grid-cols-max-1fr gap-x-4 gap-y-1">
+                        <span class="text-lg font-medium text-black">Title:</span>
+                        <span>{{ moviesStore.state.title }}</span>
 
-    <div class="q-pa-md">
-        <div class="row">
+                        <span class="text-lg font-medium text-black">tagline:</span>
+                        <span>{{ moviesStore.state.tagline }}</span>
 
-            <div class="col-12 col-md-3">
+                        <span class="text-lg font-medium text-black">vote_average:</span>
+                        <span>{{ moviesStore.state.vote_average }}</span>
 
-                <div class="q-pa-md">
-                    <!-- <q-img class="q-rounded"
-                        :src="`https://image.tmdb.org/t/p/w500/${moviesStore.movie.poster_path}`" /> -->
+                        <span class="text-lg font-medium text-black">vote_count:</span>
+                        <span>{{ moviesStore.state.vote_count }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">Overview:</span>
+                        <span class="">{{ moviesStore.state.overview }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">Budget:</span>
+                        <span class="">{{ moviesStore.state.budget }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">adult:</span>
+                        <span class="">{{ moviesStore.state.adult }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">popularity:</span>
+                        <span class="">{{ moviesStore.state.popularity }}</span>
+
+
+
+                        <span class="text-base font-medium text-black capitalize">genres:</span>
+                        <span class="">{{ moviesStore.state.genres }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">status:</span>
+                        <span class="">{{ moviesStore.state.status }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">spoken_languages:</span>
+                        <span class="">{{ moviesStore.state.spoken_languages }}</span>
+
+                        <span class="text-base font-medium text-black capitalize">release_date:</span>
+                        <span class="">{{ moviesStore.state.release_date }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">revenue:</span>
+                        <span class="">{{ moviesStore.state.revenue }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">homepage:</span>
+                        <span class="">{{ moviesStore.state.homepage }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">runtime:</span>
+                        <span class="">{{ moviesStore.state.runtime }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">production_companies:</span>
+                        <span class="">{{ moviesStore.state.production_companies }}</span>
+
+
+                        <span class="text-base font-medium text-black capitalize">production_countries:</span>
+                        <span class="">{{ moviesStore.state.production_countries }}</span>
+
+                    </div>
+
+
                 </div>
             </div>
-            <div class="col-12 col-md-9">
-
-                <!-- <div class="q-pa-md">
-                    
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div class="">Title:</div>
-                        <div class="">
-                            {{ moviesStore.movie.title }}
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>budget:</div>
-                        ${{ moviesStore.movie.budget }}
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>revenue:</div>
-                        <div>
-                            ${{ moviesStore.movie.revenue }}
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>release_date:</div>
-                        <div>
-                            {{ moviesStore.movie.release_date }}
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>runtime:</div>
-                        <div>
-                            {{ moviesStore.movie.runtime }}
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>score:</div>
-                        <div>
-                            {{ moviesStore.movie.vote_average }}
-                            <span class="q-text-xs">({{ moviesStore.movie.vote_count }} votes)</span>
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>genres:</div>
-                        <div class="genre-list">
-                            <template v-for="item in moviesStore.movie.genres" :key="item">
-                                <span class="q-ml-sm">{{ item.name }}</span>
-                                <q-icon name="radio_button_checked" size="0.6em" class="q-mx-xs" />
-                            </template>
-                        </div>
-                    </div>
-
-                    <div class="full-width row wrap justify-between q-mb-md">
-                        <div>homepage:</div>
-                        <div>
-                            <q-btn :href="moviesStore.movie.homepage" target="_blank">Link</q-btn>
-                        </div>
-                    </div>
-
-                </div> -->
-            </div>
-        </div>
+        </Skeleton>
     </div>
 </template>
-
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { useMoviesStore } from "@/stores/MoviesStore";
 import { useRoute } from 'vue-router';
-// import { useMoviesStore } from '../stores';
-
+import { Skeleton, Image } from "ant-design-vue/es";
+const moviesStore = useMoviesStore()
 const route = useRoute()
-// const moviesStore = useMoviesStore()
-
-onMounted(() => {
-    console.log(route.params.id);
-    // moviesStore.getMovie(`${route.params.id}`)
+const movieId = String(route.params.id)
+const loading = ref(false)
+onMounted(async () => {
+    loading.value = true
+    await moviesStore.GetMovieDetailHandler(movieId)
+    loading.value = false
 })
-
+onUnmounted(() => {
+    moviesStore.ResetState()
+})
 </script>
+<style lang="less">
+
+</style>

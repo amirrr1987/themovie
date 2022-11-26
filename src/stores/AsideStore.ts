@@ -4,7 +4,8 @@ import { defineStore } from 'pinia'
 
 export const useAsideStore = defineStore('AsideStore', () => {
     const state = reactive({
-        category: false
+        category: false,
+        loading: false,
     })
     return { state }
 })
