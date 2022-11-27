@@ -44,19 +44,19 @@ import { useDiscoverStore } from '@/stores/DiscoverStore';
 import { useGenreStore } from '@/stores/GenreStore';
 import { onMounted, ref } from 'vue';
 import { Button, Pagination, Skeleton, Image } from "ant-design-vue/es";
-import { useAsideStore } from '@/stores/AsideStore';
+import { useQueryStore } from '@/stores/QueryStore';
 const discoverStore = useDiscoverStore()
 const genreStore = useGenreStore()
 const loading = ref(false)
 
-const aideStore = useAsideStore()
+const queryStore = useQueryStore()
 onMounted(async () => {
     // loading.value = true
-    // await discoverStore.GetDiscoverMovieHandler(true, currentPage.value)
+    await discoverStore.GetDiscoverMovieHandler(true, queryStore.getQueryString())
     // await genreStore.GetGenreMovieHandler()
     // loading.value = false
 
-    await aideStore.getData()
+    // await aideStore.getData()
 
 })
 const currentPage = ref(0)
