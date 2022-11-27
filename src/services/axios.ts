@@ -44,16 +44,16 @@ class Axios {
   }
 
   async post(config: ConfigModel) {
-    return await this._instance.post(config.url + apiKey + config?.query, config?.data);
+    return await this._instance.post(config.url + apiKey + config?.query, config.data);
   }
   async get(config: any) {
-    return await this._instance.get(config.url + apiKey, config.data);
+    return await this._instance.get(config.url + apiKey + config?.query, config.data);
   }
   async put(config: any) {
-    return await this._instance.put(config.url + apiKey, config.data);
+    return await this._instance.put(config.url + apiKey + config?.query, config.data);
   }
   async delete(config: any) {
-    return await this._instance.delete(config.url + apiKey, config.data);
+    return await this._instance.delete(config.url + apiKey + config?.query, config.data);
   }
 }
 const service = new Axios();

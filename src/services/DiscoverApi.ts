@@ -1,7 +1,7 @@
 import useAxios from "./axios";
 const axios = useAxios();
 
-export const GetDiscoverMovieApi = async (type:string,query:string) => {
+export const GetDiscoverMovieApi = async (type: string, query: any) => {
   return await axios.get({
     url: `discover/${type}`,
     query: query,
