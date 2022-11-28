@@ -34,8 +34,8 @@
                 </template>
             </div>
         </div>
-        <Pagination v-model:current="currentPage" simple :total="discoverStore.state.total_pages"
-            @change="discoverStore.GetDiscoverMovieHandler(true, currentPage)" />
+        <Pagination v-model:current="queryStore.state.queries.page" simple :total="discoverStore.state.total_pages"
+            @change="discoverStore.GetDiscoverMovieHandler(true, queryStore.state.queryString)" />
     </div>
 </template>
 <script setup lang="ts">
@@ -52,7 +52,7 @@ const loading = ref(false)
 const queryStore = useQueryStore()
 onMounted(async () => {
     // loading.value = true
-    await discoverStore.GetDiscoverMovieHandler(true, queryStore.getQueryString())
+    // await discoverStore.GetDiscoverMovieHandler(true, queryStore.getQueryString())
     // await genreStore.GetGenreMovieHandler()
     // loading.value = false
 

@@ -44,10 +44,10 @@ class Axios {
   }
 
   async post(config: ConfigModel) {
-    return await this._instance.post(config.url  + config?.query, config.data);
+    return await this._instance.post(config.url + config?.query, config.data);
   }
   async get(config: any) {
-    return await this._instance.get(config.url  + config?.query, config.data);
+    return await this._instance.get(config.url + config?.query, config.data);
   }
   async put(config: any) {
     return await this._instance.put(config.url + config?.query, config.data);
