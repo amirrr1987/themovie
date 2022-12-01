@@ -4,7 +4,7 @@ import type { MovieDetail } from '@/models'
 import { GetMovieDetailApi } from '@/services/MoviesApi'
 import { cloneDeep } from 'lodash'
 
-export const useMoviesStore = defineStore('MoviesStore', () => {
+export const useMoviesStore = defineStore('Movie', () => {
     const obj = {
         "adult": false,
         "backdrop_path": null,

@@ -2,10 +2,10 @@ import useAxios from "./axios";
 
 const axios = useAxios();
 
-export const GetGenreMovieApi = async (query:string) => {
+export const getGenreApi = async (type: string) => {
   return await axios.get({
-    url: `genre/movie/list`,
-    query: query,
+    url: `genre/${type}/list`,
+    query: '',
     data: {},
   });
 };

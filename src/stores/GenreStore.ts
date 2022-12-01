@@ -1,24 +1,33 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import type { GenresModel } from '@/models'
-import { GetGenreMovieApi } from '@/services/GenreApi'
-
+import { getGenreApi } from '@/services/GenreApi'
+import { cloneDeep } from 'lodash';
+export interface State {
+  genres: Genre[];
+}
+export interface Genre {
+  id: number;
+  name: string;
+}
 export const useGenreStore = defineStore('Genre', () => {
-  const state = reactive<GenresModel>({
+  const obj = {
     "genres": [
       {
         "id": 0,
         "name": ""
       }
     ]
-  })
-
-  const GetGenreMovieHandler = async () => {
+  }
+  const state = reactive<State>(obj)
+  const cloneState = cloneDeep<State>(obj)
+  const resetState = () => {
+    Object.assign(state, cloneState)
+  }
+  const getGenreHandler = async (type: string) => {
     try {
-      const { data } = await GetGenreMovieApi('&language=en-US')
+      const { data } = await getGenreApi(type)
       Object.assign(state, data)
     } catch (error) {
-
     }
   }
   const findGenreNameById = (id: number) => {
@@ -27,6 +36,5 @@ export const useGenreStore = defineStore('Genre', () => {
     })
     return state.genres[index]?.name ?? ''
   }
-
-  return { state, GetGenreMovieHandler, findGenreNameById }
+  return { state, resetState, getGenreHandler, findGenreNameById }
 })
