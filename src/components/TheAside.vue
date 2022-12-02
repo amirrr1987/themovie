@@ -1,10 +1,10 @@
 <template>
   <Form layout="vertical" class="border border-gray-200 rounded p-4">
-    <FormItem label="Language">
+    <FormItem label="Language" class="item--row" >
       <Switch v-model:checked="queryStore.state.queries.category" size="small" />
     </FormItem>
-    <FormItem label="+18">
-      <Switch v-model:checked="queryStore.state.queries.include_adult" size="small" />
+    <FormItem label="+18" class="item--row">
+      <Switch v-model:checked="queryStore.state.queries.include_adult" size="small" class="self-end" />
     </FormItem>
 
     <FormItem label="Language">
@@ -96,6 +96,13 @@ onMounted(() => {
 });
 </script>
 
-<style lang="less">
-
+<style>
+.item--row {
+    display: grid !important;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+}
+.item .ant-form-item-label{
+  flex-basis: 1;
+}
 </style>
