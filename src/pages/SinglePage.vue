@@ -22,21 +22,21 @@
         <div class="col-span-3">
           <div class="grid grid-cols-max-1fr gap-x-4 gap-y-1">
             <span class="text-lg font-medium text-black">Title:</span>
-            <span>{{ moviesStore.state.title }}</span>
+            <span>{{ moviesStore.state.title.length === 0 ? '-' : moviesStore.state.title }}</span>
 
             <span class="text-lg font-medium text-black">Tagline:</span>
-            <span>{{ moviesStore.state.tagline }}</span>
+            <span>{{ moviesStore.state.tagline.length === 0 ? '-' : moviesStore.state.tagline }}</span>
 
             <span class="text-lg font-medium text-black">Vote average:</span>
-            <span>{{ moviesStore.state.vote_average }}</span>
+            <span>{{  moviesStore.state.vote_average }}</span>
 
             <span class="text-lg font-medium text-black">Vote count:</span>
-            <span>{{ moviesStore.state.vote_count }}</span>
+            <span>{{  moviesStore.state.vote_count }}</span>
 
             <span class="text-base font-medium text-black capitalize"
               >Overview:</span
             >
-            <span class="">{{ moviesStore.state.overview }}</span>
+            <span class="">{{ moviesStore.state.overview.length === 0 ? '-' : moviesStore.state.overview }}</span>
 
             <span class="text-base font-medium text-black capitalize"
               >Budget:</span
@@ -65,7 +65,7 @@
             <span class="text-base font-medium text-black capitalize"
               >Status:</span
             >
-            <span class="">{{ moviesStore.state.status }}</span>
+            <span class="">{{ moviesStore.state.status.length === 0 ? '-' : moviesStore.state.status }}</span>
 
             <span class="text-base font-medium text-black capitalize"
               >Release date:</span

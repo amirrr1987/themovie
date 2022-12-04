@@ -2,7 +2,6 @@
   <div class="py-12">
     <div class="grid grid-cols-12 gap-4">
       <TheAside class="col-span-2 overflow-y-scroll h-full" />
-
       <div class="col-span-10 grid grid-cols-4 gap-4 overflow-y-scroll h-full">
         <template v-for="item in discoverStore.state.discover.results">
           <CardItem :item="item" :loading="loading" />

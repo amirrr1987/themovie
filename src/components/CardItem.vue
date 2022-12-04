@@ -9,15 +9,16 @@
       <!-- <EditOutlined key="edit" /> -->
       <!-- <EllipsisOutlined key="ellipsis" /> -->
 
-      <!-- <span v-if="props.item.adult">+18</span> -->
+      <span v-if="props.item.adult" class="bg-red-500 text-white p-1 rounded-full inline-flex">+18</span>
 
       <span>{{ props.item.budget }}</span>
       <span>{{ props.item.vote_average }}</span>
       <RouterLink :to="{ name: 'SinglePage', params: { id: props.item.id } }">
         <Button type="link" size="small">
-          <template #icon>
+          more..
+          <!-- <template #icon>
             <EllipsisOutlined key="ellipsis" />
-          </template>
+          </template> -->
         </Button>
       </RouterLink>
     </template>
