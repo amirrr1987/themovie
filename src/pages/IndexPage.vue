@@ -1,8 +1,15 @@
 <template>
   <div class="py-12">
     <div class="grid grid-cols-12 gap-4">
-      <TheAside class="col-span-2 overflow-y-scroll h-full" />
-      <div class="col-span-10 grid grid-cols-4 gap-4 overflow-y-scroll h-full">
+            <div class="col-span-12">
+        <RadioGroup v-model:value="gridColSize">
+          <RadioButton value="3" >3</RadioButton>
+          <RadioButton value="4" >4</RadioButton>
+          <RadioButton value="5" >5</RadioButton>
+        </RadioGroup>
+      </div>
+      <TheAside class="col-span-2" />
+      <div class="col-span-10 grid grid-cols-custom gap-4">
         <template v-for="item in discoverStore.state.discover.results">
           <CardItem :item="item" :loading="loading" />
         </template>
@@ -25,6 +32,7 @@ import { Pagination } from "ant-design-vue/es";
 import { useQueryStore } from "@/stores/QueryStore";
 import { useConfigurationStore } from "@/stores/ConfigurationStore";
 import CardItem from "@/components/CardItem.vue";
+import { RadioGroup, RadioButton } from "ant-design-vue/es";
 
 const discoverStore = useDiscoverStore();
 const genreStore = useGenreStore();
@@ -50,10 +58,14 @@ const submitQueryStrings = async () => {
   );
   loading.value = false;
 };
+const gridColSize = ref(3)
 </script>
 <style>
 .ant-skeleton-image {
   width: 100% !important;
   height: 460px !important;
+}
+.grid-cols-custom{
+  grid-template-columns: repeat( v-bind('gridColSize') , minmax(0,1fr));
 }
 </style>
