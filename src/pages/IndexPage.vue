@@ -1,6 +1,7 @@
 <template>
-  <div class="py-12">
-    <div class="grid grid-cols-12 gap-4">
+  <main class="py-12">
+    <TheContainer>
+      <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12">
         <RadioGroup v-model:value="gridColSize">
           <RadioButton value="3" >3</RadioButton>
@@ -21,7 +22,8 @@
       :total="discoverStore.state.discover.total_pages"
       @change="submitQueryStrings"
     />
-  </div>
+    </TheContainer>
+  </main>
 </template>
 <script setup lang="ts">
 import TheAside from "@/components/TheAside.vue";
@@ -33,6 +35,7 @@ import { useQueryStore } from "@/stores/QueryStore";
 import { useConfigurationStore } from "@/stores/ConfigurationStore";
 import CardItem from "@/components/CardItem.vue";
 import { RadioGroup, RadioButton } from "ant-design-vue/es";
+import TheContainer from "@/components/TheContainer.vue";
 
 const discoverStore = useDiscoverStore();
 const genreStore = useGenreStore();

@@ -1,11 +1,7 @@
 <template>
-  <div class="py-12">
-    <img
-      class="w-full h-190 object-cover object-top rounded shadow mb-4"
-      :src="`https://image.tmdb.org/t/p/original/${moviesStore.state.backdrop_path}`"
-      alt=""
-    />
-    <Skeleton
+  <main class="py-12 single">
+    <TheContainer>
+      <Skeleton
       active
       avatar
       title
@@ -21,39 +17,51 @@
         />
         <div class="col-span-3">
           <div class="grid grid-cols-max-1fr gap-x-4 gap-y-1">
-            <span class="text-lg font-medium text-black">Title:</span>
-            <span>{{ moviesStore.state.title.length === 0 ? '-' : moviesStore.state.title }}</span>
+            <span class="text-lg font-medium text-white">Title:</span>
+            <span>{{
+              moviesStore.state.title.length === 0
+                ? "-"
+                : moviesStore.state.title
+            }}</span>
 
-            <span class="text-lg font-medium text-black">Tagline:</span>
-            <span>{{ moviesStore.state.tagline.length === 0 ? '-' : moviesStore.state.tagline }}</span>
+            <span class="text-lg font-medium text-white">Tagline:</span>
+            <span>{{
+              moviesStore.state.tagline.length === 0
+                ? "-"
+                : moviesStore.state.tagline
+            }}</span>
 
-            <span class="text-lg font-medium text-black">Vote average:</span>
-            <span>{{  moviesStore.state.vote_average }}</span>
+            <span class="text-lg font-medium text-white">Vote average:</span>
+            <span>{{ moviesStore.state.vote_average }}</span>
 
-            <span class="text-lg font-medium text-black">Vote count:</span>
-            <span>{{  moviesStore.state.vote_count }}</span>
+            <span class="text-lg font-medium text-white">Vote count:</span>
+            <span>{{ moviesStore.state.vote_count }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Overview:</span
             >
-            <span class="">{{ moviesStore.state.overview.length === 0 ? '-' : moviesStore.state.overview }}</span>
+            <span class="">{{
+              moviesStore.state.overview.length === 0
+                ? "-"
+                : moviesStore.state.overview
+            }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Budget:</span
             >
             <span class="">{{ moviesStore.state.budget }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Adult:</span
             >
             <span class="">{{ moviesStore.state.adult }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Popularity:</span
             >
             <span class="">{{ moviesStore.state.popularity }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Genres:</span
             >
             <div class="flex gap-x-1">
@@ -62,34 +70,38 @@
               </template>
             </div>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Status:</span
             >
-            <span class="">{{ moviesStore.state.status.length === 0 ? '-' : moviesStore.state.status }}</span>
+            <span class="">{{
+              moviesStore.state.status.length === 0
+                ? "-"
+                : moviesStore.state.status
+            }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Release date:</span
             >
             <span class="">{{ moviesStore.state.release_date }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Revenue:</span
             >
             <span class="">{{ moviesStore.state.revenue }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Homepage:</span
             >
             <a :href="moviesStore.state.homepage" target="_blank">{{
               moviesStore.state.homepage
             }}</a>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Runtime:</span
             >
             <span class="">{{ moviesStore.state.runtime }}</span>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Production countries:</span
             >
             <div>
@@ -98,7 +110,7 @@
               </template>
             </div>
 
-            <span class="text-base font-medium text-black capitalize"
+            <span class="text-base font-medium text-white capitalize"
               >Production companies:</span
             >
             <div class="flex gap-x-4">
@@ -115,7 +127,8 @@
         </div>
       </div>
     </Skeleton>
-  </div>
+    </TheContainer>
+  </main>
 </template>
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
@@ -123,6 +136,7 @@ import { useMoviesStore } from "@/stores/MoviesStore";
 import { useRoute } from "vue-router";
 import { Skeleton, Image } from "ant-design-vue/es";
 import { useGenreStore } from "@/stores/GenreStore";
+import TheContainer from "@/components/TheContainer.vue";
 const moviesStore = useMoviesStore();
 const route = useRoute();
 const movieId = String(route.params.id);
@@ -138,4 +152,23 @@ onUnmounted(() => {
   moviesStore.ResetState();
 });
 </script>
-<style lang="less"></style>
+<style>
+.single {
+  background-image: v-bind('`url(https://image.tmdb.org/t/p/original/${moviesStore.state.backdrop_path})`');
+  position: relative;
+  z-index: -2;
+  color: #FFF;
+  }
+  .single::after{
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #212121;
+    opacity: 0.85;
+    z-index: -1;
+  }
+</style>
