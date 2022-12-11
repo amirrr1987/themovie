@@ -53,11 +53,12 @@
       </Select>
     </FormItem>
 
-    <Button type="primary" @click="submitQueryStrings"> Search </Button>
+    <Button type="primary" block @click="submitQueryStrings"> Search </Button>
   </Form>
 </template>
 <script setup lang="ts">
 import {
+  Button,
   Form,
   FormItem,
   Switch,

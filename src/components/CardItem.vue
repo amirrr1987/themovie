@@ -1,7 +1,7 @@
 <template>
-  <Card :loading="props.loading" hoverable>
+  <Card :loading="props.loading" hoverable >
     <template #cover>
-      <Image :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.item.poster_path)" alt="" />
+      <img :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.item.poster_path)" alt="" />
       <SkeletonImage v-if="!props.item" class="w-full h-96" />
     </template>
     <template #actions>
