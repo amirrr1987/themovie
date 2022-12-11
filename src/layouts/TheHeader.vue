@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-primary py-4">
+    <nav class="bg-black py-4">
         <div class="container mx-auto">
             <div class="flex justify-between items-center">
                 <a href="https://github.com/amirrr1987/themovie" target="_blank" class="text-primary-50 text-lg">The Movie</a>

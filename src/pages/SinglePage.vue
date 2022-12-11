@@ -5,8 +5,6 @@
       active
       avatar
       title
-      size="large"
-      class="border border-gray-200 p-4px rounded w-full"
       :loading="loading"
     >
       <div class="grid grid-cols-4 gap-x-4">
@@ -155,6 +153,10 @@ onUnmounted(() => {
 <style>
 .single {
   background-image: v-bind('`url(https://image.tmdb.org/t/p/original/${moviesStore.state.backdrop_path})`');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #212121;
   position: relative;
   z-index: -2;
   color: #FFF;
