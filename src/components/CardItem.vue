@@ -9,7 +9,7 @@
       <!-- <EditOutlined key="edit" /> -->
       <!-- <EllipsisOutlined key="ellipsis" /> -->
 
-      <span v-if="props.item.adult" class="bg-red-500 text-white p-1 rounded-full inline-flex">+18</span>
+      <span v-if="props.item.adult" class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6">+18</span>
 
       <span>{{ props.item.budget }}</span>
       <span>{{ props.item.vote_average }}</span>
