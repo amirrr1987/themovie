@@ -3,9 +3,9 @@
     <FormItem label="Language" class="item--row" >
       <Switch v-model:checked="queryStore.state.queries.category" size="small" />
     </FormItem>
-    <FormItem label="+18" class="item--row">
+    <!-- <FormItem label="+18" class="item--row">
       <Switch v-model:checked="queryStore.state.queries.include_adult" size="small" class="self-end" />
-    </FormItem>
+    </FormItem> -->
 
     <FormItem label="Language">
       <Select v-model:value="queryStore.state.queries.language" showSearch>
