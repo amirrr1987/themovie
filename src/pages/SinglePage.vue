@@ -143,7 +143,7 @@ const genreStore = useGenreStore();
 
 onMounted(async () => {
   loading.value = true;
-  await moviesStore.GetMovieDetailHandler(movieId);
+  await moviesStore.GetMovieDetailHandler({ movieId: movieId });
   loading.value = false;
 });
 onUnmounted(() => {

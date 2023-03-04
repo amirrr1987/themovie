@@ -97,7 +97,7 @@ export const useMoviesStore = defineStore('Movie', () => {
         Object.assign(state, cloneState)
     }
 
-    const GetMovieDetailHandler = async (movieId: string) => {
+    const GetMovieDetailHandler = async ({ movieId }: { movieId: string }) => {
         try {
             const { data } = await GetMovieDetailApi(movieId)
             Object.assign(state, data)
