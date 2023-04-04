@@ -1,7 +1,7 @@
 
 import { message } from "ant-design-vue";
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
-const apiKey = "?api_key=f62f750b70a8ef11dad44670cfb6aa57"
+const apiKey = "?api_key=55ee9c566996339d9859d1ec68533e20"
 
 interface ConfigModel {
   url: string,
