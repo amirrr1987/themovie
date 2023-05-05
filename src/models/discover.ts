@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { OriginalLanguage } from "/tmp/61743789d404f649eae4292926bc9e16.ts";
 
 export const originalLanguageSchema = z.nativeEnum(OriginalLanguage);
 
@@ -53,4 +52,6 @@ export const movieSchema = z.object({
 export const stateSchema = z.object({
   discover: movieSchema,
 });
+
+export type MovieResult = z.infer<typeof movieResultSchema>;
 export type State = z.infer<typeof stateSchema>;

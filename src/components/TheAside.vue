@@ -1,21 +1,18 @@
 <template>
   <Form layout="vertical" class="border border-gray-200 rounded p-4">
     <FormItem label="Language" class="item--row">
-      <Switch
-        v-model:checked="queryStore.state.queries.category"
-        size="small"
-      />
+      <!-- <Switch size="small" @change="addToQueries" /> -->
     </FormItem>
     <FormItem label="+18" class="item--row">
-      <Switch
+      <!-- <Switch
         v-model:checked="queryStore.state.queries.include_adult"
         size="small"
         class="self-end"
-      />
+      /> -->
     </FormItem>
 
     <FormItem label="Language">
-      <Select v-model:value="queryStore.state.queries.language" showSearch>
+      <Select showSearch @change="addToQueries($event,`language=`)">
         <template
           v-for="item in configurationStore.state.configuration.languages"
         >
@@ -27,7 +24,7 @@
     </FormItem>
 
     <FormItem label="Region">
-      <Select v-model:value="queryStore.state.queries.region" showSearch>
+      <!-- <Select v-model:value="queryStore.state.queries.region" showSearch>
         <template
           v-for="item in configurationStore.state.configuration.languages"
         >
@@ -35,17 +32,17 @@
             item.english_name
           }}</SelectOption>
         </template>
-      </Select>
+      </Select> -->
     </FormItem>
 
     <FormItem label="certification_country">
-      <Select v-model:value="queryStore.state.queries.certification_country">
+      <!-- <Select v-model:value="queryStore.state.queries.certification_country">
         <SelectOption value="US">ccertification_country</SelectOption>
-      </Select>
+      </Select> -->
     </FormItem>
 
     <FormItem label="sort">
-      <Select v-model:value="queryStore.state.queries.sort_by">
+      <!-- <Select v-model:value="queryStore.state.queries.sort_by">
         <SelectOption value=""></SelectOption>
         <SelectOption value="popularity.asc">popularity.asc</SelectOption>
         <SelectOption value="popularity.desc">popularity.desc</SelectOption>
@@ -69,13 +66,14 @@
         <SelectOption value="vote_average.desc">vote_average.desc</SelectOption>
         <SelectOption value="vote_count.asc">vote_count.asc</SelectOption>
         <SelectOption value="vote_count.desc">vote_count.desc</SelectOption>
-      </Select>
+      </Select> -->
     </FormItem>
 
     <Button type="primary" block @click="submitQueryStrings"> Search </Button>
   </Form>
 </template>
 <script setup lang="ts">
+import { useConfigurationStore } from "@/stores/configuration";
 import {
   Button,
   Form,
@@ -84,35 +82,34 @@ import {
   Select,
   SelectOption,
 } from "ant-design-vue/es";
-import { useQueryStore } from "@/stores/QueryStore";
-import { useDiscoverStore } from "@/stores/DiscoverStore";
-import { onMounted } from "vue";
-import { useConfigurationStore } from "@/stores/Configuration";
-import { useRouter } from "vue-router";
+import { onMounted, reactive } from "vue";
+import { useDiscoverStore } from "@/stores/discover";
 
-const queryStore = useQueryStore();
+// import { onMounted, reactive } from "vue";
+// import { useConfigurationStore } from "@/stores/configuration";
+// import { useRouter } from "vue-router";
+
+// const query = reactive<string[]>([]);
+
+// const router = useRouter();
+
 const discoverStore = useDiscoverStore();
-// const callApi = async () => {
-// await discoverStore.GetDiscoverMovieHandler(asideStore.state.category, 2)
-// }
+const queries = reactive<string[]>([]);
 
-const router = useRouter();
+const addToQueries = (event:any,value: string) => {
+  queries.push(`&${value}${event}`);
+  console.log(queries);
+  
+};
 const submitQueryStrings = () => {
-  // queryStore.createQueryString();
-  // discoverStore.GetDiscoverMovieHandler(true, queryStore.state.queryString);
-  queryStore.createQueryString();
-
-  // router.push({name: 'IndexPage', query: queryStore.state.queries })
-
-  discoverStore.getDiscoverHandler("movie", "&" + queryStore.state.queryString);
+  discoverStore.getDiscoverHandler({ type: "movie", query: queries });
 };
 
 const configurationStore = useConfigurationStore();
-
-onMounted(() => {
-  configurationStore.getConfigurationHandler();
-  configurationStore.getCountriesHandler();
-  configurationStore.getLanguagesHandler();
+onMounted(async () => {
+  await configurationStore.getConfigurationHandler();
+  await configurationStore.getCountriesHandler();
+  await configurationStore.getLanguagesHandler();
 });
 </script>
 

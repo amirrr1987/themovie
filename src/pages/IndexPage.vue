@@ -1,40 +1,30 @@
 <template>
-  <main class="py-12 bg-dark">
+  <main class="py-12">
     <TheContainer>
       <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-12">
-          <RadioGroup v-model:value="gridColSize">
-            <RadioButton value="3">3</RadioButton>
-            <RadioButton value="4">4</RadioButton>
-            <RadioButton value="5">5</RadioButton>
-          </RadioGroup>
-        </div>
-        <TheAside class="col-span-2" />
+        <TheAside  class="col-span-2" />
         <div class="col-span-10 grid grid-cols-custom gap-4">
-          <template v-for="item in discoverStore.state.discover.results">
-            <CardItem :item="item" :loading="loading" />
+          <template
+            v-for="(item, index) in discoverStore.state.discover.results"
+            :key="index"
+          >
+            <CardItem :item="item" :loading="true" />
           </template>
         </div>
       </div>
-      <Pagination
-        v-model:current="queryStore.state.queries.page"
-        simple
-        :total="discoverStore.state.discover.total_pages"
-        @change="submitQueryStrings"
-      />
     </TheContainer>
   </main>
 </template>
 <script setup lang="ts">
-import TheAside from "@/components/TheAside.vue";
-import { useDiscoverStore } from "@/stores/DiscoverStore";
-import { useGenreStore } from "@/stores/GenreStore";
+import TheContainer from "@/components/TheContainer.vue";
+import CardItem from "@/components/CardItem.vue";
+import { useDiscoverStore } from "@/stores/discover";
+import { useGenreStore } from "@/stores/genre";
 import { onMounted, ref } from "vue";
 import { Pagination } from "ant-design-vue/es";
-import { useConfigurationStore } from "@/stores/Configuration";
-import CardItem from "@/components/CardItem.vue";
-import { RadioGroup, RadioButton } from "ant-design-vue/es";
-import TheContainer from "@/components/TheContainer.vue";
+import { useConfigurationStore } from "@/stores/configuration";
+import TheAside from "@/components/TheAside.vue";
+// import { RadioGroup, RadioButton } from "ant-design-vue/es";
 
 const discoverStore = useDiscoverStore();
 const genreStore = useGenreStore();
@@ -44,16 +34,17 @@ const loading = ref(false);
 onMounted(async () => {
   loading.value = true;
   await configurationStore.getConfigurationHandler();
-  await genreStore.getGenreHandler();
+  await genreStore.getGenreHandler({ type: "movie" });
+  await discoverStore.getDiscoverHandler({ type: "movie", query: [""] });
   loading.value = false;
 });
 
-const submitQueryStrings = async () => {
-  loading.value = true;
-  await discoverStore.getDiscoverHandler();
-  loading.value = false;
-};
-const gridColSize = ref(4);
+// const submitQueryStrings = async () => {
+//   loading.value = true;
+//   await discoverStore.getDiscoverHandler();
+//   loading.value = false;
+// };
+const gridColSize = ref(5);
 </script>
 <style>
 .ant-skeleton-image {

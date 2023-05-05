@@ -53,11 +53,10 @@ import {
   SkeletonImage,
   Avatar,
 } from "ant-design-vue/es";
-import type { MovieDetail } from "@/models";
-import { useConfigurationStore } from "@/stores/Configuration";
+import type { MovieResult } from "@/models/discover";
+import { useConfigurationStore } from "@/stores/configuration";
 interface Props {
-  item: MovieDetail;
-  loading: boolean;
+  item: MovieResult;
 }
 const props = withDefaults(defineProps<Props>(), {
   item: () => {
