@@ -31,34 +31,26 @@ import { useDiscoverStore } from "@/stores/DiscoverStore";
 import { useGenreStore } from "@/stores/GenreStore";
 import { onMounted, ref } from "vue";
 import { Pagination } from "ant-design-vue/es";
-import { useQueryStore } from "@/stores/QueryStore";
-import { useConfigurationStore } from "@/stores/ConfigurationStore";
+import { useConfigurationStore } from "@/stores/Configuration";
 import CardItem from "@/components/CardItem.vue";
 import { RadioGroup, RadioButton } from "ant-design-vue/es";
 import TheContainer from "@/components/TheContainer.vue";
 
 const discoverStore = useDiscoverStore();
 const genreStore = useGenreStore();
-const queryStore = useQueryStore();
 const configurationStore = useConfigurationStore();
 
 const loading = ref(false);
 onMounted(async () => {
   loading.value = true;
   await configurationStore.getConfigurationHandler();
-  await genreStore.getGenreHandler("movie");
-  await queryStore.createQueryString();
-  await discoverStore.getDiscoverHandler("movie", queryStore.state.queryString);
+  await genreStore.getGenreHandler();
   loading.value = false;
 });
 
 const submitQueryStrings = async () => {
   loading.value = true;
-  await queryStore.createQueryString();
-  await discoverStore.getDiscoverHandler(
-    "movie",
-    "&" + queryStore.state.queryString
-  );
+  await discoverStore.getDiscoverHandler();
   loading.value = false;
 };
 const gridColSize = ref(4);

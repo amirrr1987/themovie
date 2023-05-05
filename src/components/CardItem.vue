@@ -1,15 +1,24 @@
 <template>
-  <Card :loading="props.loading" hoverable >
+  <Card :loading="props.loading" hoverable>
     <template #cover>
-      <img :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.item.poster_path)" alt="" />
+      <img
+        :preview="false"
+        class="h-full w-full object-cover"
+        :src="getImageUrl(props.item.poster_path)"
+        alt=""
+      />
       <SkeletonImage v-if="!props.item" class="w-full h-96" />
     </template>
     <template #actions>
-      <SettingOutlined key="setting" />
+      <!-- <SettingOutlined key="setting" /> -->
       <!-- <EditOutlined key="edit" /> -->
       <!-- <EllipsisOutlined key="ellipsis" /> -->
 
-      <span v-if="props.item.adult" class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6">+18</span>
+      <span
+        v-if="props.item.adult"
+        class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6"
+        >+18</span
+      >
 
       <span>{{ props.item.budget }}</span>
       <span>{{ props.item.vote_average }}</span>
@@ -45,38 +54,40 @@ import {
   Avatar,
 } from "ant-design-vue/es";
 import type { MovieDetail } from "@/models";
-import { useConfigurationStore } from "@/stores/ConfigurationStore";
+import { useConfigurationStore } from "@/stores/Configuration";
 interface Props {
   item: MovieDetail;
   loading: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  item: {
-    adult: false,
-    backdrop_path: "",
-    belongs_to_collection: null,
-    budget: 0,
-    genres: [],
-    homepage: "",
-    id: 0,
-    imdb_id: "",
-    original_language: "",
-    original_title: "",
-    overview: "",
-    popularity: 0,
-    poster_path: "0",
-    production_companies: [],
-    production_countries: [],
-    release_date: "2022-10-19",
-    revenue: 368000000,
-    runtime: 125,
-    spoken_languages: [],
-    status: "",
-    tagline: "",
-    title: "",
-    video: false,
-    vote_average: 0,
-    vote_count: 0,
+  item: () => {
+    return {
+      adult: false,
+      backdrop_path: "",
+      belongs_to_collection: null,
+      budget: 0,
+      genres: [],
+      homepage: "",
+      id: 0,
+      imdb_id: "",
+      original_language: "",
+      original_title: "",
+      overview: "",
+      popularity: 0,
+      poster_path: "0",
+      production_companies: [],
+      production_countries: [],
+      release_date: "2022-10-19",
+      revenue: 368000000,
+      runtime: 125,
+      spoken_languages: [],
+      status: "",
+      tagline: "",
+      title: "",
+      video: false,
+      vote_average: 0,
+      vote_count: 0,
+    };
   },
 });
 

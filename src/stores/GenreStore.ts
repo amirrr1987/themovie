@@ -1,40 +1,34 @@
-import { ref, computed, reactive } from 'vue'
-import { defineStore } from 'pinia'
-import { getGenreApi } from '@/services/GenreApi'
-import { cloneDeep } from 'lodash';
-export interface State {
-  genres: Genre[];
-}
-export interface Genre {
-  id: number;
-  name: string;
-}
-export const useGenreStore = defineStore('Genre', () => {
-  const obj = {
-    "genres": [
-      {
-        "id": 0,
-        "name": ""
-      }
-    ]
-  }
-  const state = reactive<State>(obj)
-  const cloneState = cloneDeep<State>(obj)
+import { ref, computed, reactive, Static } from "vue";
+import { defineStore } from "pinia";
+import { getGenreApi } from "@/services/GenreApi";
+import { cloneDeep, assign, find } from "lodash";
+import { clg } from "@/utils";
+import type { State } from "@/models/genre";
+import { _init } from "@/init/genre";
+
+export const useGenreStore = defineStore("Genre", () => {
+  const state = reactive<State>(_init);
+  const cloneState = cloneDeep<State>(_init);
   const resetState = () => {
-    Object.assign(state, cloneState)
-  }
-  const getGenreHandler = async (type: string) => {
+    assign(state, cloneState);
+  };
+  const getGenreHandler = async ({ type }: { type: string }) => {
     try {
-      const { data } = await getGenreApi(type)
-      Object.assign(state, data)
+      const { data } = await getGenreApi({ type: type });
+      assign(state, data);
     } catch (error) {
+      clg.logger({
+        name: "error",
+        value: error,
+        path: "GenreStore.ts",
+        line: "32",
+        commit: "getGenreHandler",
+        isActive: false,
+      });
     }
-  }
-  const findGenreNameById = (id: number) => {
-    const index = state.genres.findIndex((single) => {
-      return single.id === id
-    })
-    return state.genres[index]?.name ?? ''
-  }
-  return { state, resetState, getGenreHandler, findGenreNameById }
-})
+  };
+  const findGenreNameById = ({ id }: { id: number }) => {
+    return find(state.genres, { id: id });
+  };
+  return { state, resetState, getGenreHandler, findGenreNameById };
+});
