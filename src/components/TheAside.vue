@@ -1,72 +1,144 @@
 <template>
-  <Form layout="vertical" class="border border-gray-200 rounded p-4">
-    <FormItem label="Language" class="item--row">
-      <!-- <Switch size="small" @change="addToQueries" /> -->
-    </FormItem>
-    <FormItem label="+18" class="item--row">
-      <!-- <Switch
-        v-model:checked="queryStore.state.queries.include_adult"
+  <Form
+    layout="vertical"
+    class="border border-gray-200 rounded p-4 overflow-y-scroll h-screen"
+  >
+    <FormItem label="include adult">
+      <Switch
+        v-model:checked="queryStore.state.query.include_adult"
         size="small"
-        class="self-end"
-      /> -->
+      />
     </FormItem>
 
-    <FormItem label="Language">
-      <Select showSearch @change="addToQueries($event,`language=`)">
-        <template
-          v-for="item in configurationStore.state.configuration.languages"
-        >
-          <SelectOption :value="item.iso_639_1">{{
-            item.english_name
-          }}</SelectOption>
-        </template>
-      </Select>
+    <FormItem label="include video">
+      <Switch
+        v-model:checked="queryStore.state.query.include_video"
+        size="small"
+      />
     </FormItem>
 
-    <FormItem label="Region">
-      <!-- <Select v-model:value="queryStore.state.queries.region" showSearch>
-        <template
-          v-for="item in configurationStore.state.configuration.languages"
-        >
-          <SelectOption :value="item.name">{{
-            item.english_name
-          }}</SelectOption>
-        </template>
-      </Select> -->
+    <FormItem label="language">
+      <Input v-model:value="queryStore.state.query.language" size="small" />
+    </FormItem>
+    <FormItem label="page">
+      <InputNumber
+        v-model:value="queryStore.state.query.page"
+        :min="1"
+        size="small"
+      />
     </FormItem>
 
-    <FormItem label="certification_country">
-      <!-- <Select v-model:value="queryStore.state.queries.certification_country">
-        <SelectOption value="US">ccertification_country</SelectOption>
-      </Select> -->
+    <FormItem label="primary release year">
+      <Input
+        v-model:value="queryStore.state.query.primary_release_year"
+        size="small"
+      />
     </FormItem>
 
-    <FormItem label="sort">
-      <!-- <Select v-model:value="queryStore.state.queries.sort_by">
-        <SelectOption value=""></SelectOption>
-        <SelectOption value="popularity.asc">popularity.asc</SelectOption>
-        <SelectOption value="popularity.desc">popularity.desc</SelectOption>
-        <SelectOption value="release_date.asc">release_date.asc</SelectOption>
-        <SelectOption value="release_date.desc">release_date.desc</SelectOption>
-        <SelectOption value="revenue.asc">revenue.asc</SelectOption>
-        <SelectOption value="revenue.desc">revenue.desc</SelectOption>
-        <SelectOption value="primary_release_date.asc"
-          >primary_release_date.asc</SelectOption
-        >
-        <SelectOption value="primary_release_date.desc"
-          >primary_release_date.desc</SelectOption
-        >
-        <SelectOption value="original_title.asc"
-          >original_title.asc</SelectOption
-        >
-        <SelectOption value="original_title.desc"
-          >original_title.desc</SelectOption
-        >
-        <SelectOption value="vote_average.asc">vote_average.asc</SelectOption>
-        <SelectOption value="vote_average.desc">vote_average.desc</SelectOption>
-        <SelectOption value="vote_count.asc">vote_count.asc</SelectOption>
-        <SelectOption value="vote_count.desc">vote_count.desc</SelectOption>
-      </Select> -->
+    <FormItem label="region">
+      <Input v-model:value="queryStore.state.query.region" size="small" />
+    </FormItem>
+
+    <FormItem label="sort by">
+      <Input v-model:value="queryStore.state.query.sort_by" size="small" />
+    </FormItem>
+
+    <FormItem label="watch region">
+      <Input v-model:value="queryStore.state.query.watch_region" size="small" />
+    </FormItem>
+
+    <FormItem label="with cast">
+      <Input v-model:value="queryStore.state.query.with_cast" size="small" />
+    </FormItem>
+
+    <FormItem label="with_companies">
+      <Input
+        v-model:value="queryStore.state.query.with_companies"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_crew">
+      <Input v-model:value="queryStore.state.query.with_crew" size="small" />
+    </FormItem>
+
+    <FormItem label="with_genres">
+      <Input v-model:value="queryStore.state.query.with_genres" size="small" />
+    </FormItem>
+
+    <FormItem label="with_keywords">
+      <Input
+        v-model:value="queryStore.state.query.with_keywords"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_original_language">
+      <Input
+        v-model:value="queryStore.state.query.with_original_language"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_people">
+      <Input v-model:value="queryStore.state.query.with_people" size="small" />
+    </FormItem>
+
+    <FormItem label="with_release_type">
+      <Input
+        v-model:value="queryStore.state.query.with_release_type"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_watch_monetization_types">
+      <Switch
+        v-model:checked="queryStore.state.query.with_watch_monetization_types"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_watch_providers">
+      <Input
+        v-model:value="queryStore.state.query.with_watch_providers"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="with_watch_providers">
+      <Input
+        v-model:value="queryStore.state.query.with_watch_providers"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="without_companies">
+      <Input
+        v-model:value="queryStore.state.query.without_companies"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="without_genres">
+      <Input
+        v-model:value="queryStore.state.query.without_genres"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="without_keywords">
+      <Input
+        v-model:value="queryStore.state.query.without_keywords"
+        size="small"
+      />
+    </FormItem>
+
+    <FormItem label="year">
+      <InputNumber
+        v-model:value="queryStore.state.query.year"
+        :min="1"
+        size="small"
+      />
     </FormItem>
 
     <Button type="primary" block @click="submitQueryStrings"> Search </Button>
@@ -74,6 +146,7 @@
 </template>
 <script setup lang="ts">
 import { useConfigurationStore } from "@/stores/configuration";
+import { useQueryStore } from "@/stores/query";
 import {
   Button,
   Form,
@@ -81,6 +154,8 @@ import {
   Switch,
   Select,
   SelectOption,
+  InputNumber,
+  Input,
 } from "ant-design-vue/es";
 import { onMounted, reactive } from "vue";
 import { useDiscoverStore } from "@/stores/discover";
@@ -96,16 +171,16 @@ import { useDiscoverStore } from "@/stores/discover";
 const discoverStore = useDiscoverStore();
 const queries = reactive<string[]>([]);
 
-const addToQueries = (event:any,value: string) => {
+const addToQueries = (event: any, value: string) => {
   queries.push(`&${value}${event}`);
   console.log(queries);
-  
 };
 const submitQueryStrings = () => {
   discoverStore.getDiscoverHandler({ type: "movie", query: queries });
 };
 
 const configurationStore = useConfigurationStore();
+const queryStore = useQueryStore();
 onMounted(async () => {
   await configurationStore.getConfigurationHandler();
   await configurationStore.getCountriesHandler();

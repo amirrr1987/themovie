@@ -10,7 +10,7 @@ export const useDiscoverStore = defineStore("Discover", () => {
   const state = reactive<State>(_init);
   const cloneState = cloneDeep<State>(_init);
   const resetState = () => {
-    Object.assign(state, cloneState);
+    assign(state, cloneState);
   };
   const getDiscoverHandler = async ({
     type,

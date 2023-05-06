@@ -10,7 +10,7 @@ export const useMovieStore = defineStore("movie", () => {
   const state = reactive<State>(_init);
   const cloneState = cloneDeep<State>(_init);
   const resetState = () => {
-    Object.assign(state, cloneState);
+    assign(state, cloneState);
   };
   const getMovieHandler = async ({ movieId }: { movieId: string }) => {
     try {

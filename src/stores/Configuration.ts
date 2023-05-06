@@ -13,7 +13,7 @@ export const useConfigurationStore = defineStore("Configuration", () => {
   const state = reactive<State>(_init);
   const cloneState = cloneDeep<State>(_init);
   const resetState = () => {
-    Object.assign(state, cloneState);
+    assign(state, cloneState);
   };
   const getConfigurationHandler = async () => {
     try {

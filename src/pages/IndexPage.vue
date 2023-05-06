@@ -3,7 +3,7 @@
     <TheContainer>
       <div class="grid grid-cols-12 gap-4">
         <TheAside  class="col-span-2" />
-        <div class="col-span-10 grid grid-cols-custom gap-4">
+        <div class="col-span-10 grid grid-cols-custom gap-4 overflow-y-scroll h-96">
           <template
             v-for="(item, index) in discoverStore.state.discover.results"
             :key="index"
