@@ -1,7 +1,7 @@
 import { ref, computed, reactive, Static } from "vue";
 import { defineStore } from "pinia";
 import { getGenreApi } from "@/services/genre";
-import { cloneDeep, assign, find } from "lodash";
+import { cloneDeep, assign, find } from "lodash-es";
 import { clg } from "@/utils";
 import type { State } from "@/models/genre";
 import { _init } from "@/init/genre";

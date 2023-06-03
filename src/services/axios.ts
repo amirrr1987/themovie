@@ -1,6 +1,6 @@
 import { message } from "ant-design-vue";
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
-import { join } from "lodash";
+import { join } from "lodash-es";
 const apiKey = "?api_key=55ee9c566996339d9859d1ec68533e20";
 
 interface ConfigModel {

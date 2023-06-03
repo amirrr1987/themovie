@@ -1,95 +1,70 @@
 <template>
   <Card :loading="props.loading" hoverable>
     <template #cover>
-      <img
-        :preview="false"
-        class="h-full w-full object-cover"
-        :src="getImageUrl(props.item.poster_path)"
-        alt=""
-      />
-      <SkeletonImage v-if="!props.item" class="w-full h-96" />
+      <img :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.poster_path)" alt="" />
+      <SkeletonImage v-if="!props" class="w-full h-96" />
     </template>
     <template #actions>
-      <!-- <SettingOutlined key="setting" /> -->
-      <!-- <EditOutlined key="edit" /> -->
-      <!-- <EllipsisOutlined key="ellipsis" /> -->
-
-      <span
-        v-if="props.item.adult"
-        class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6"
-        >+18</span
-      >
-
-      <span>{{ props.item.budget }}</span>
-      <span>{{ props.item.vote_average }}</span>
-      <RouterLink :to="{ name: 'SinglePage', params: { id: props.item.id } }">
+      <span v-if="props.adult"
+        class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6">+18</span>
+      <span>{{ props.vote_average }}</span>
+      <RouterLink :to="{ name: 'SinglePage', params: { id: props.id } }">
         <Button type="link" size="small">
           more..
-          <!-- <template #icon>
-            <EllipsisOutlined key="ellipsis" />
-          </template> -->
         </Button>
       </RouterLink>
     </template>
-    <CardMeta
-      :title="props.item.title"
-      :description="splitText(props.item.overview)"
-    >
-      <template #avatar>
-        <Avatar src="https://joeschmoe.io/api/v1/random" />
-        <!-- {{item.id}} -->
-      </template>
-    </CardMeta>
+    <CardMeta :title="props.title" :description="splitText(props.overview)" />
   </Card>
 </template>
 <script setup lang="ts">
-import { SettingOutlined, EllipsisOutlined } from "@ant-design/icons-vue";
 
 import {
   Button,
-  Image,
   Card,
   CardMeta,
   SkeletonImage,
-  Avatar,
 } from "ant-design-vue/es";
-import type { MovieResult } from "@/models/discover";
 import { useConfigurationStore } from "@/stores/configuration";
+export interface Discover {
+
+}
+
 interface Props {
-  item: MovieResult;
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  loading: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
-  item: () => {
-    return {
-      adult: false,
-      backdrop_path: "",
-      belongs_to_collection: null,
-      budget: 0,
-      genres: [],
-      homepage: "",
-      id: 0,
-      imdb_id: "",
-      original_language: "",
-      original_title: "",
-      overview: "",
-      popularity: 0,
-      poster_path: "0",
-      production_companies: [],
-      production_countries: [],
-      release_date: "2022-10-19",
-      revenue: 368000000,
-      runtime: 125,
-      spoken_languages: [],
-      status: "",
-      tagline: "",
-      title: "",
-      video: false,
-      vote_average: 0,
-      vote_count: 0,
-    };
-  },
+  adult: false,
+  backdrop_path: "",
+  genre_ids: [],
+  id: 0,
+  original_language: "",
+  original_title: "",
+  overview: "",
+  popularity: 0,
+  poster_path: "",
+  release_date: "",
+  title: "",
+  video: false,
+  vote_average: 0,
+  vote_count: 0,
+  loading: false
+  ,
 });
-
 const splitText = (text: string) => {
   const textArray = text.split(" ");
   const filterArray = textArray.slice(0, 10);

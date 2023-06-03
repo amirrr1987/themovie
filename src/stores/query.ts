@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, reactive } from "vue";
 // import { getMovieApi } from "@/services/movie";
-import { cloneDeep, assign } from "lodash";
+import { cloneDeep, assign } from "lodash-es";
 import type { State } from "@/models/query";
 import { _init } from "@/init/query";
 import { clg } from "@/utils";

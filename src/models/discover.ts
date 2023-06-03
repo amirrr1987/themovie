@@ -23,7 +23,7 @@ export const movieResultSchema = z.object({
   backdrop_path: z.string(),
   genre_ids: z.array(z.number()),
   id: z.number(),
-  original_language: originalLanguageSchema,
+  original_language: z.string(),
   original_title: z.string(),
   overview: z.string(),
   popularity: z.number(),
@@ -32,9 +32,11 @@ export const movieResultSchema = z.object({
   title: z.string(),
   video: z.boolean(),
   vote_average: z.number(),
-  vote_count: z.number(),
+  vote_count: z.number()
 });
 
+
+  
 export const tvSchema = z.object({
   page: z.number(),
   results: z.array(tvResultSchema),

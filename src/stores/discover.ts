@@ -1,10 +1,17 @@
 import { computed, reactive } from "vue";
 import { defineStore } from "pinia";
 import { getDiscoverApi } from "@/services/discover";
-import { cloneDeep, assign } from "lodash";
+import { cloneDeep, assign } from "lodash-es";
 import type { State } from "@/models/discover";
 import { _init } from "@/init/discover";
 import { clg } from "@/utils";
+
+// Methods Params Interface
+interface Params {
+  type: string;
+  query: string[];
+}
+
 
 export const useDiscoverStore = defineStore("Discover", () => {
   const state = reactive<State>(_init);
@@ -12,13 +19,8 @@ export const useDiscoverStore = defineStore("Discover", () => {
   const resetState = () => {
     assign(state, cloneState);
   };
-  const getDiscoverHandler = async ({
-    type,
-    query,
-  }: {
-    type: string;
-    query: string[];
-  }) => {
+
+  const getDiscoverHandler = async ({ type, query }: Params) => {
     try {
       const { data } = await getDiscoverApi({ type: type, query: query });
       assign(state.discover, data);
@@ -29,7 +31,6 @@ export const useDiscoverStore = defineStore("Discover", () => {
         path: "DiscoverStore.ts",
         line: "20",
         commit: "getDiscoverHandler",
-        isActive: false,
       });
     }
   };

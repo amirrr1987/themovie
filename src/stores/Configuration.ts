@@ -5,7 +5,7 @@ import {
   getCountriesApi,
   getLanguagesApi,
 } from "@/services/Configuration";
-import { assign, cloneDeep } from "lodash";
+import { assign, cloneDeep } from "lodash-es";
 import type { State } from "@/models/configuration";
 import { _init } from "@/init/configuration";
 import { clg } from "@/utils";
