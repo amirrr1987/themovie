@@ -2,14 +2,10 @@
   <main class="py-12">
     <TheContainer>
       <div class="grid grid-cols-12 gap-4">
-        <TheAside class="col-span-2" />
-        <div class="col-span-10 grid grid-cols-custom gap-4 overflow-y-scroll">
+        <TheAside class="col-span-12 md:col-span-3 lg:col-span-2" />
+        <div class="col-span-12 md:col-span-9  lg:col-span-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 overflow-y-scroll">
           <template v-for="(item, index) in discoverStore.state.discover.results" :key="index">
-            <CardItem :adult="item.adult" :backdrop_path="item.backdrop_path" :genre_ids="item.genre_ids" :id="item.id"
-              :original_language="item.original_language" :original_title="item.original_title" :overview="item.overview"
-              :popularity="item.popularity" :poster_path="item.poster_path" :release_date="item.release_date"
-              :title="item.title" :video="item.video" :vote_average="item.vote_average" :vote_count="item.vote_count"
-              :loading="loading" />
+            <CardItem :item="item" :loading="loading" />
           </template>
         </div>
       </div>
@@ -23,7 +19,7 @@ import { useDiscoverStore } from "@/stores/discover";
 import { useGenreStore } from "@/stores/genre";
 import { onMounted, ref } from "vue";
 import { Pagination } from "ant-design-vue/es";
-import { useConfigurationStore } from "@/stores/configuration";
+import { useConfigurationStore } from "@/stores/Configuration";
 import TheAside from "@/components/TheAside.vue";
 // import { RadioGroup, RadioButton } from "ant-design-vue/es";
 
@@ -45,7 +41,7 @@ onMounted(async () => {
 //   await discoverStore.getDiscoverHandler();
 //   loading.value = false;
 // };
-const gridColSize = ref(5);
+// const gridColSize = ref(1);
 </script>
 <style>
 .ant-skeleton-image {
@@ -54,6 +50,6 @@ const gridColSize = ref(5);
 }
 
 .grid-cols-custom {
-  grid-template-columns: repeat(v-bind("gridColSize"), minmax(0, 1fr));
+  /* grid-template-columns: repeat(v-bind("gridColSize"), minmax(0, 1fr)); */
 }
 </style>
