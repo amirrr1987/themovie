@@ -1,28 +1,23 @@
 <template>
   <Card :loading="props.loading" hoverable>
     <template #cover>
-      <img :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.item.poster_path)" alt="" />
+      <img :preview="false" class="h-full w-full object-cover" :src="getImageUrl(props.item?.poster_path)" alt="" />
       <SkeletonImage v-if="!props" class="w-full h-96" />
     </template>
     <template #actions>
-      <span v-if="props.item.adult"
+      <span v-if="props.item?.adult"
         class="bg-red-500 text-white p-1 rounded-full flex justify-center items-center text-[8px] w-6 h-6">+18</span>
-      <span>{{ props.item.vote_average }}</span>
+      <span>{{ props.item?.vote_average }}</span>
       <Icon icon="" />
-      <RouterLink :to="{ name: 'SinglePage', params: { id: props.item.id } }">
+      <RouterLink :to="{ name: 'SinglePage', params: { id: props.item?.id } }">
         <Button type="link" size="small">
           more..
         </Button>
       </RouterLink>
     </template>
-    <CardMeta :title="props.item.title">
+    <CardMeta :title="props.item?.title">
       <template #description>
-        <div>{{ splitText(props.item.overview) }}</div>
-        <!-- <div class="flex gap-1 flex-wrap">
-          <Tag class="!mr-0" size="small" color="blue" v-for="(single,index) in getName(item.genre_ids)" :key="index">
-            {{ single }}
-          </Tag>
-        </div> -->
+        <div>{{ splitText(props.item?.overview) }}</div>
       </template>
     </CardMeta>
   </Card>
@@ -59,24 +54,22 @@ interface Props {
   loading: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
-  item: () => {
-    return {
-      adult: false,
-      backdrop_path: "",
-      genre_ids: [],
-      id: 0,
-      original_language: "",
-      original_title: "",
-      overview: "",
-      popularity: 0,
-      poster_path: "",
-      title: "",
-      video: false,
-      vote_average: 0,
-      vote_count: 0,
-      loading: false
-      ,
-    }
+  item: {
+    adult: false,
+    backdrop_path: "",
+    genre_ids: [],
+    id: 0,
+    original_language: "",
+    original_title: "",
+    overview: "",
+    popularity: 0,
+    poster_path: "",
+    title: "",
+    video: false,
+    vote_average: 0,
+    vote_count: 0,
+    loading: false
+    ,
   }
 });
 const splitText = (text: string) => {
