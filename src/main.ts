@@ -1,11 +1,10 @@
+import 'ant-design-vue/dist/antd.css'
+import 'virtual:uno.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import 'ant-design-vue/dist/antd.css';
-import 'uno.css'
-import 'virtual:unocss-devtools'
+
 import App from './App.vue'
 import router from './router'
-
 
 const app = createApp(App)
 

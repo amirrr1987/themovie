@@ -4,7 +4,7 @@ import {
   getConfigurationApi,
   getCountriesApi,
   getLanguagesApi,
-} from "@/services/Configuration";
+} from "@/services/configuration";
 import { assign, cloneDeep } from "lodash-es";
 import type { State } from "@/models/configuration";
 import { _init } from "@/init/configuration";
@@ -58,11 +58,19 @@ export const useConfigurationStore = defineStore("Configuration", () => {
       });
     }
   };
+  const getImageUrl = (path: string) => {
+    return (
+      state.configuration.images.base_url +
+      state.configuration.images.poster_sizes[3] +
+      path
+    )
+  }
   return {
     state,
     resetState,
     getConfigurationHandler,
     getCountriesHandler,
     getLanguagesHandler,
-  };
+    getImageUrl
+  }
 });
