@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { getDiscoverApi } from '@/services/discover'
-import { cloneDeep, assign } from 'lodash-es'
+import { cloneDeep, assign } from 'lodash'
 import type { State } from '@/models/discover'
 import { _init } from '@/init/discover'
 import { clg } from '@/utils'
