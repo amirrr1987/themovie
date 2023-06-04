@@ -31,7 +31,7 @@
   import { useDiscoverStore } from '@/stores/discover'
   import { useConfigurationStore } from '@/stores/configuration'
   import { onMounted } from 'vue'
-  import { truncate } from 'lodash-es'
+  import { truncate } from 'lodash'
   const discoverStore = useDiscoverStore()
   const configurationStore = useConfigurationStore()
 onMounted(async () => {
