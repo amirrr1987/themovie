@@ -1,5 +1,5 @@
 import { message } from 'ant-design-vue'
-import axios, { type AxiosError, type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosError } from 'axios'
 import { join } from 'lodash'
 const apiKey = '?api_key=55ee9c566996339d9859d1ec68533e20'
 
@@ -23,7 +23,7 @@ class Axios {
 
   constructor() {
     this._instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
+      (config) => {
         if (config.headers) { /* empty */ }
         return config
       },
