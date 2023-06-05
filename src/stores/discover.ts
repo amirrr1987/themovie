@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { getDiscoverApi } from '@/services/discover'
 import { cloneDeep, assign } from 'lodash'
@@ -32,6 +32,9 @@ export const useDiscoverStore = defineStore('Discover', () => {
       })
     }
   }
+  const discoverComputed = computed(() => {
+    return state.discover
+  })
 
-  return { state, resetState, getDiscoverHandler }
+  return { state, resetState, getDiscoverHandler, discoverComputed }
 })
