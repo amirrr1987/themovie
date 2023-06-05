@@ -4,10 +4,10 @@ import {
   getConfigurationApi,
   getCountriesApi,
   getLanguagesApi,
-} from "@/services/configuration";
+} from "@/services/config";
 import { assign, cloneDeep } from "lodash";
-import type { State } from "@/models/configuration";
-import { _init } from "@/init/configuration";
+import type { State } from "@/models/config";
+import { _init } from "@/init/config";
 import { clg } from "@/utils";
 export const useConfigurationStore = defineStore("configuration", () => {
   const state = reactive<State>(_init);

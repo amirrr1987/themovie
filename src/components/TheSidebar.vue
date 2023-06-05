@@ -4,7 +4,7 @@
       <FormItem>
         <Pagination
           v-model:current="discover.page"
-          @change="queryStore.setQueryHandler(`page`, discover.page),searchHandler()"
+          @change="queryStore.setQueryHandler(`page`, discover.page), searchHandler()"
           simple
           :total="discoverStore.state.discover.total_pages"
         />
@@ -24,7 +24,9 @@
           unchecked-children=""
           checked-children="+18"
           v-model:checked="discover.include_adult"
-          @change="queryStore.setQueryHandler(`include_adult`, discover.include_adult),searchHandler()"
+          @change="
+            queryStore.setQueryHandler(`include_adult`, discover.include_adult), searchHandler()
+          "
         />
       </FormItem>
       <FormItem label="Include video">
@@ -32,13 +34,15 @@
           unchecked-children=""
           checked-children="+18"
           v-model:checked="discover.include_video"
-          @change="queryStore.setQueryHandler(`include_video`, discover.include_video),searchHandler()"
+          @change="
+            queryStore.setQueryHandler(`include_video`, discover.include_video), searchHandler()
+          "
         />
       </FormItem>
       <FormItem label="Sort">
         <Select
           v-model:value="discover.sort"
-          @change="queryStore.setQueryHandler(`sort`, discover.sort),searchHandler()"
+          @change="queryStore.setQueryHandler(`sort`, discover.sort), searchHandler()"
         >
           <SelectOption value=""></SelectOption>
           <SelectOption value="popularity.asc">Popularity ascending</SelectOption>
@@ -57,6 +61,12 @@
           <SelectOption value="vote_count.desc">Vote_count descending</SelectOption>
         </Select>
       </FormItem>
+      <FormItem label="year">
+        <InputNumber
+          v-model:value="discover.year"
+          @change="queryStore.setQueryHandler(`year`, discover.year), searchHandler()"
+        />
+      </FormItem>
       <FormItem>
         <Button type="primary" :loading="loading" @click="searchHandler">Search</Button>
       </FormItem>
@@ -64,12 +74,21 @@
   </aside>
 </template>
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configuration'
+import { useConfigurationStore } from '@/stores/config'
 import { useDiscoverStore } from '@/stores/discover'
 import { useQueryStore } from '@/stores/query'
-import { Form, FormItem, Pagination, Switch, Select, SelectOption, Button } from 'ant-design-vue'
+import {
+  Form,
+  FormItem,
+  Pagination,
+  Switch,
+  Select,
+  SelectOption,
+  Button,
+  InputNumber
+} from 'ant-design-vue'
 import { reactive, ref, onMounted } from 'vue'
-
+import moment from 'moment'
 const queryStore = useQueryStore()
 const discoverStore = useDiscoverStore()
 
@@ -90,7 +109,8 @@ const discover = reactive({
   include_adult: false,
   sort: '',
   include_video: false,
-  page: 1
+  page: 1,
+  year: (val: moment.MomentInput) => moment(val, 'YYYY/MM/DD').unix()
 })
 const searchHandler = async () => {
   const query: any = []
