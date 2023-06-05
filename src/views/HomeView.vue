@@ -28,7 +28,7 @@ import IconStar from '@/components/IconStar.vue'
 import Icon18 from '@/components/Icon18.vue'
 import { Card, CardMeta, Button } from 'ant-design-vue'
 import { useDiscoverStore } from '@/stores/discover'
-import { useConfigurationStore } from '../stores/configuration'
+import { useConfigurationStore } from '@/stores/configuration'
 import { truncate } from 'lodash'
 const discoverStore = useDiscoverStore()
 const configurationStore = useConfigurationStore()

@@ -11,7 +11,7 @@ interface Params {
   query: string[]
 }
 
-export const useDiscoverStore = defineStore('Discover', () => {
+export const useDiscoverStore = defineStore('discover', () => {
   const state = reactive<State>(_init)
   const cloneState = cloneDeep<State>(_init)
   const resetState = () => {

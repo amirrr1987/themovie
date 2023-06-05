@@ -9,7 +9,7 @@ import { assign, cloneDeep } from "lodash";
 import type { State } from "@/models/configuration";
 import { _init } from "@/init/configuration";
 import { clg } from "@/utils";
-export const useConfigurationStore = defineStore("Configuration", () => {
+export const useConfigurationStore = defineStore("configuration", () => {
   const state = reactive<State>(_init);
   const cloneState = cloneDeep<State>(_init);
   const resetState = () => {
