@@ -1,5 +1,5 @@
 <template>
-    id {{id}}
+    <div>id </div>
 </template>
 <script setup lang="ts">
 
