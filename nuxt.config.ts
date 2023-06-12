@@ -6,6 +6,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@unocss/nuxt',
+    '@pinia/nuxt',
+    "nuxt-lodash"
   ],
   css: [
     'ant-design-vue/dist/antd.css',
