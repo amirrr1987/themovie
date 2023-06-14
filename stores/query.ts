@@ -12,7 +12,7 @@ export const useQueryStore = defineStore('query', () => {
   }
 
   const setQueryHandler = (label: string, value: any) => {
-    const index = state.query.findIndex((item) => item.label === label)
+    const index = state.query.findIndex((item: { label: string }) => item.label === label)
     if (index >= 0) {
       state.query.splice(index, 1)
     }

@@ -28,7 +28,7 @@ export const useDiscoverStore = defineStore('discover', () => {
         value: error,
         path: 'DiscoverStore.ts',
         line: '20',
-        commit: 'getDiscoverHandler'
+        commit: 'getDiscover method'
       })
     }
   }
