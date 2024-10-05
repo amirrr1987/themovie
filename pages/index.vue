@@ -2,6 +2,7 @@
   <section class="py-12">
     <UContainer>
       <div>
+        {{ genres }}
         <div class="flex gap-x-4">
           <URadioGroup
             v-model="type"
@@ -9,7 +10,33 @@
             :options="typeOptions"
           />
           <USelect v-model="sort_by" :options="sortByOption" />
+
+          <UInput v-model="with_keywords" placeholder="with_keywords" />
+          <UInput v-model="without_keywords" placeholder="without_keywords" />
+
+          <USelect
+            v-model="with_genres"
+            :options="genres?.genres"
+            option-attribute="name"
+            valueAttribute="id"
+          />
+
+          <USelect
+            v-model="without_genres"
+            :options="genres?.genres"
+            option-attribute="name"
+            valueAttribute="id"
+          />
+          <!-- <UInput v-model="with_genres" placeholder="with_genres" />
+          <UInput v-model="without_genres" placeholder="without_genres" /> -->
         </div>
+        <UPagination
+          class="my-6"
+          v-model="page"
+          :total="500"
+          show-first
+          show-last
+        />
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
           <DiscoverCard
             v-for="item in discoverData?.results"
@@ -41,10 +68,20 @@ const typeOptions = [
     label: "TV",
   },
 ];
-const sort_by = useRouteQuery("sort_by", "popularity.desc", {
-  transform: String,
-});
+const with_keywords = useRouteQuery<string>("with_keywords");
+
+const without_keywords = useRouteQuery<string>("without_keywords");
+
+const with_genres = useRouteQuery<string>("with_genres");
+const without_genres = useRouteQuery<string>("without_genres");
+
+const sort_by = useRouteQuery<string>("sort_by");
+
 const sortByOption = [
+  {
+    label: "",
+    value: undefined,
+  },
   {
     label: "original_title.asc",
     value: "original_title.asc",
@@ -79,6 +116,10 @@ const setQuery = () => {
   return {
     page,
     sort_by,
+    with_keywords,
+    without_keywords,
+    with_genres,
+    without_genres,
   };
 };
 
@@ -91,7 +132,16 @@ const { data: discoverData, status: discoverStatus } = await useFetch<Discover>(
   {
     query: setQuery(),
     deep: true,
-    watch: [page, type, sort_by, computedApi],
+    watch: [
+      page,
+      type,
+      sort_by,
+      with_keywords,
+      without_keywords,
+      with_genres,
+      without_genres,
+      computedApi,
+    ],
   }
 );
 
