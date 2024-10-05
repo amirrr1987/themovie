@@ -42,7 +42,7 @@ const cardUi = {
 <template>
   <NuxtLink
     :to="{
-      name: 'single-title',
+      name: 'title',
       params: {
         title: props.item.title || props.item.name,
       },
