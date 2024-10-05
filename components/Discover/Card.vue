@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core";
-import type { Move, Tv } from "~/types/discoverModel";
+import type { DiscoverItem } from "~/types/discoverModel";
 import type { GenreElement } from "~/types/genreModel";
 const { width, height } = useWindowSize();
 
 interface Props {
-  item: Move | Tv;
+  item: DiscoverItem;
   genres: GenreElement[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  item: () => ({}) as Move | Tv,
+  item: () => ({}) as DiscoverItem,
   genres: () => [] as GenreElement[],
 });
 
@@ -44,7 +44,9 @@ const cardUi = {
     :to="{
       name: 'title',
       params: {
-        title: props.item.title || props.item.name,
+        title:
+          props.item.title.replace(/ /g, '-') ||
+          props.item.name.replace(/ /g, '-'),
       },
       query: {
         id: props.item.id,
