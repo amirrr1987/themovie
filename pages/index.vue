@@ -12,22 +12,11 @@
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
           <DiscoverCard
-            v-if="discoverStatus === 'success'"
             v-for="item in discoverData?.results"
             :item="item"
             :genres="getGenres(item.genre_ids)"
             :key="item.id"
           />
-          <div
-            class="flex items-center space-x-4"
-            v-if="discoverStatus === 'pending'"
-          >
-            <USkeleton class="h-12 w-12" :ui="{ rounded: 'rounded-full' }" />
-            <div class="space-y-2">
-              <USkeleton class="h-4 w-[250px]" />
-              <USkeleton class="h-4 w-[200px]" />
-            </div>
-          </div>
         </div>
       </div>
     </UContainer>
