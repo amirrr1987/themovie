@@ -125,10 +125,10 @@ const page = useRouteQuery("page", "1", {
 const setQuery = () => {
   return {
     page,
-    sort_by,
-    with_genres,
-    without_genres,
-    include_adult,
+    // sort_by,
+    // with_genres,
+    // without_genres,
+    // include_adult,
   };
 };
 
@@ -140,14 +140,13 @@ const { data: discoverData, status: discoverStatus } = await useFetch<Discover>(
 
   {
     query: setQuery(),
-    deep: true,
     watch: [
-      page,
       type,
-      sort_by,
-      with_genres,
-      without_genres,
-      include_adult,
+      // page,
+      // sort_by,
+      // with_genres,
+      // without_genres,
+      // include_adult,
       computedApi,
     ],
   }
