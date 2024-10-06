@@ -2,7 +2,7 @@
   <section class="py-12">
     <UContainer>
       <div>
-        <div class="flex gap-x-4">
+        <div class="flex flex-col md:flex-row gap-4">
           <URadioGroup
             v-model="type"
             legend="Choose something"
