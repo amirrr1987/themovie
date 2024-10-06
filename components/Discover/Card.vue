@@ -53,17 +53,24 @@ const cardUi = {
     <UCard :ui="cardUi">
       <template #header>
         <NuxtImg
+          v-if="props.item.backdrop_path"
           class="w-full"
           :src="`http://image.tmdb.org/t/p/original/${props.item.backdrop_path}`"
         />
+        <USkeleton v-else class="w-full" :ui="{ rounded: 'rounded-full' }" />
       </template>
-      <h3 class="font-bold">{{ props.item.title || props.item.name }}</h3>
+      <h3 class="font-bold" v-if="props.item.title || props.item.name">
+        {{ props.item.title || props.item.name }}
+      </h3>
+      <USkeleton />
+
       <template #footer>
-        <div class="flex gap-2">
+        <div class="flex gap-2" v-if="props.item.genre_ids">
           <UBadge v-for="item in props.genres" color="rose" variant="subtle">
             {{ item.name }}
           </UBadge>
         </div>
+        <USkeleton v-else class="h-4" />
       </template>
     </UCard>
   </NuxtLink>
