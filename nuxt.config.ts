@@ -12,4 +12,19 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-lodash",
   ],
+  image: {
+    // Set provider to IPX or another image provider
+    provider: "ipx", // This uses the default IPX provider for local image optimization
+    domains: ["image.tmdb.org"], // Add external domains like the one you are using
+    screens: {
+      // Define image sizes for responsive handling
+      sm: 320,
+      md: 640,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+    // Disable static images in case Netlify has trouble processing them
+    staticFilename: "[name]-[hash][ext]",
+  },
 });
