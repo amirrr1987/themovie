@@ -15,13 +15,13 @@ export default defineNuxtConfig({
   image: {
     provider: "ipx",
     domains: ["image.tmdb.org"],
-    // screens: {
-    //   sm: 320,
-    //   md: 640,
-    //   lg: 1024,
-    //   xl: 1280,
-    //   xxl: 1536,
-    // },
-    // staticFilename: "[name]-[hash][ext]",
+    screens: {
+      sm: 320,
+      md: 640,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+    staticFilename: "[name]-[hash][ext]",
   },
 });
