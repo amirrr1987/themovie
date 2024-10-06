@@ -3,42 +3,54 @@
     <UContainer>
       <div>
         <div class="flex flex-col md:flex-row gap-4">
-          <URadioGroup
-            v-model="type"
-            legend="Choose something"
-            :options="typeOptions"
-          />
-          <USelect v-model="sort_by" :options="sortByOption" />
-          <URadioGroup
-            v-model="include_adult"
-            legend="Choose something"
-            :options="[
-              {
-                value: 'false',
-                label: 'False',
-              },
-              {
-                value: 'true',
-                label: 'True',
-              },
-            ]"
-          />
+          <UFormGroup label="Type">
+            <URadioGroup
+              v-model="type"
+              legend="Choose something"
+              :options="typeOptions"
+            />
+          </UFormGroup>
+          <UFormGroup label="Sort">
+            <USelect v-model="sort_by" :options="sortByOption" />
+          </UFormGroup>
+          <UFormGroup label="Adult">
+            <URadioGroup
+              v-model="include_adult"
+              legend="Choose something"
+              :options="[
+                {
+                  value: 'false',
+                  label: 'False',
+                },
+                {
+                  value: 'true',
+                  label: 'True',
+                },
+              ]"
+            />
+          </UFormGroup>
 
-          <USelectMenu
-            v-model="with_genres"
-            :options="genres?.genres"
-            option-attribute="name"
-            valueAttribute="id"
-            class="block !w-44"
-          />
+          <UFormGroup label="Width Genres">
+            <USelectMenu
+              v-model="with_genres"
+              :options="genres?.genres"
+              option-attribute="name"
+              valueAttribute="id"
+              class="block !w-44"
+              multiple
+            />
+          </UFormGroup>
 
-          <USelectMenu
-            v-model="without_genres"
-            :options="genres?.genres"
-            option-attribute="name"
-            valueAttribute="id"
-            class="block !w-44"
-          />
+          <UFormGroup abel="Without Genres">
+            <USelectMenu
+              v-model="without_genres"
+              :options="genres?.genres"
+              option-attribute="name"
+              valueAttribute="id"
+              class="block !w-44"
+              multiple
+            />
+          </UFormGroup>
         </div>
         <UPagination
           class="my-6"
