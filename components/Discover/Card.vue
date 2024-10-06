@@ -57,7 +57,7 @@ const cardUi = {
           class="w-full"
           :src="`http://image.tmdb.org/t/p/original/${props.item.backdrop_path}`"
         />
-        <USkeleton v-else class="w-full" :ui="{ rounded: 'rounded-full' }" />
+        <USkeleton v-else class="w-full" />
       </template>
       <h3 class="font-bold" v-if="props.item.title || props.item.name">
         {{ props.item.title || props.item.name }}
