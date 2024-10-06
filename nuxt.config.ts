@@ -13,8 +13,8 @@ export default defineNuxtConfig({
     "nuxt-lodash",
   ],
   image: {
-    // provider: "ipx",
-    domains: ["api.themoviedb.org"],
+    provider: "ipx",
+    domains: ["image.tmdb.org"],
     // screens: {
     //   sm: 320,
     //   md: 640,
