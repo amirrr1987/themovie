@@ -6,14 +6,13 @@
           <UFormGroup label="Type">
             <URadioGroup
               v-model="type"
-              legend="Choose something"
               :options="typeOptions"
             />
           </UFormGroup>
-          <UFormGroup label="Sort">
+          <!-- <UFormGroup label="Sort">
             <USelect v-model="sort_by" :options="sortByOption" />
-          </UFormGroup>
-          <UFormGroup label="Adult">
+          </UFormGroup> -->
+          <!-- <UFormGroup label="Adult">
             <URadioGroup
               v-model="include_adult"
               legend="Choose something"
@@ -28,7 +27,7 @@
                 },
               ]"
             />
-          </UFormGroup>
+          </UFormGroup> -->
 
           <UFormGroup label="Width Genres">
             <USelectMenu
@@ -41,7 +40,7 @@
             />
           </UFormGroup>
 
-          <UFormGroup abel="Without Genres">
+          <UFormGroup label="Without Genres">
             <USelectMenu
               v-model="without_genres"
               :options="genres?.genres"

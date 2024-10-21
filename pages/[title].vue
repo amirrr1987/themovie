@@ -3,7 +3,7 @@
     <UContainer class="grid md:grid-cols-2 gap-4">
       <NuxtImg
         class="w-full"
-        :src="`http://image.tmdb.org/t/p/original/${data?.backdrop_path}`"
+        :src="`http://image.tmdb.org/t/p/original/${data?.poster_path}`"
       />
       <div>
         <div>
@@ -19,6 +19,7 @@
 </template>
 <script setup lang="ts">
 import type { DiscoverItem } from "~/types/discoverModel";
+
 
 const route = useRoute();
 

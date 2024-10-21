@@ -2,7 +2,6 @@
 
 <template>
   <div>
-    Layout: single
     <slot />
   </div>
 </template>

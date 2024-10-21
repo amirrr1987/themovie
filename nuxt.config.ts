@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/content",
     "@nuxt/eslint",
-    "@nuxtjs/supabase",
     "dayjs-nuxt",
     "@pinia/nuxt",
   ],
